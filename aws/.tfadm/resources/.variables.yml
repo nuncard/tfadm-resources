@@ -1,0 +1,7 @@
+extends: .variables
+parent: .aws
+properties:
+  profile:
+    ignore: true
+  role_arn:
+    nullable: true

@@ -1,0 +1,18 @@
+extends: .versions
+parent: .aws
+template:
+  data:
+    terraform:
+      required_providers:
+        aws:
+          source: hashicorp/aws
+properties:
+  required_providers:
+    properties:
+      aws:
+        properties:
+          version:
+            description: >-
+              Specifies which versions of hashicorp/aws provider the module is compatible with.
+              Accepts a version constraint string.
+            value: ~> 4.0

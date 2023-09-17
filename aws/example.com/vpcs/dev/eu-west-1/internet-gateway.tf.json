@@ -1,0 +1,12 @@
+{
+  "resource": {
+    "aws_internet_gateway": {
+      "this": {
+        "tags": {
+          "Name": "dev"
+        },
+        "vpc_id": "${aws_vpc.this.id}"
+      }
+    }
+  }
+}

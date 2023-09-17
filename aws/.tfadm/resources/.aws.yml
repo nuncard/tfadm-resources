@@ -1,0 +1,12 @@
+parent: .root
+description: Amazon Web Services.
+properties:
+  profile:
+    description: Use a specific profile from your credential file.
+    ignore: true
+    inherit: true
+    value: default
+  region:
+    description: The name of the AWS region.
+    ignore: true
+    inherit: true

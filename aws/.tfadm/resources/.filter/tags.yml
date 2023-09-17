@@ -1,0 +1,12 @@
+extends: .tags-all
+description: Tags that, together with the name, allow you to uniquely identify a resource.
+properties:
+  domain:
+    ignore: null
+    use: tags/Domain
+  environment:
+    ignore: null
+    use: tags/Environment
+  tags:
+    description: null
+    ignore: true

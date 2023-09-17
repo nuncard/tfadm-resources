@@ -1,0 +1,81 @@
+extends: .tags-all
+parent: .region
+description: >-
+  A set of DHCP options for your VPC.
+
+  Dynamic Host Configuration Protocol (DHCP) provides a standard for passing configuration
+  information to hosts on a TCP/IP network. You can create as many additional DHCP option sets as
+  you want. However, you can only associate a VPC with one set of DHCP option at a time. After you
+  create a set of DHCP option, you must configure your VPC to use it.
+path: domain_name
+source: dhcp-options/{dhcp_options_name}/{region}/dhcp-options.tf.json
+address: resource/aws_vpc_dhcp_options/this
+properties:
+  dhcp_options_name:
+    default: '{environment}'
+    description: DHCP option set name.
+    sync: Tags/Name
+    use: tags/Name
+  dhcp_options_id_:
+    expr: '"{}.{}.{}".format(dhcp_options_name, region, domain)'
+    format: dopt-{}
+    hash: md5
+    ignore: true
+    required: true
+    inherit: true
+    sync: false
+    when: dhcp_options_name is defined and region is defined and domain is defined
+  DhcpOptionsId:
+    ignore: true
+    description: The ID of the DHCP option set with which you want to sync.
+  domain_name:
+    default: '{region}.{dhcp_options_name}.{domain}'
+    description: >-
+      This value is used to complete unqualified DNS hostnames. Some Linux operating systems accept
+      multiple domain names separated by spaces. However, Windows and other Linux operating systems
+      treat the value as a single domain, which results in unexpected behavior. If your DHCP options
+      set is associated with a VPC that has instances with multiple operating systems, specify only
+      one domain name.
+    inherit: false
+    required: true
+    sync: DhcpConfigurations/domain-name
+    translate:
+      us-east-1.compute.internal: ec2.internal
+  domain_name_servers:
+    default: AmazonProvidedDNS
+    description: The IP addresses of up to four domain name servers, or AmazonProvidedDNS.
+    sync: DhcpConfigurations/domain-name-servers
+    type: list
+  ntp_servers:
+    default: '169.254.169.123'
+    description: The IP addresses of up to four Network Time Protocol (NTP) servers.
+    sync: DhcpConfigurations/ntp-servers
+    type: list
+  netbios_name_servers:
+    description: The IP addresses of up to four NetBIOS name servers.
+    sync: DhcpConfigurations/netbios-name-servers
+    type: list
+  netbios_node_type:
+    description: >-
+      The NetBIOS node type (1, 2, 4, or 8). We recommend that you specify 2 (broadcast and
+      multicast are not currently supported). For more information about these node types, see
+      [RFC 2132](http://www.ietf.org/rfc/rfc2132.txt).
+    sync: DhcpConfigurations/netbios-node-type
+methods:
+  sync:
+    describe:
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId}
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=tag:Name,Values={dhcp_options_name}
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region}
+    when: dhcp_options_name | default(None, true) is not none
+  terraform:
+    import:
+      id: '{DhcpOptionsId}'
+events:
+  oninit:
+    create:
+      .dhcp-options/providers: {}
+      .dhcp-options/versions: {}
+module:
+  name: '{dhcp_options_id_}'
+  file: .tfadm/var/lib/dhcp-options.json

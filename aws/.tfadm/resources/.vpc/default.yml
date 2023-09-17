@@ -1,0 +1,46 @@
+extends: vpc
+properties:
+  dhcp_options_name:
+    ignore: true
+    inherit: true
+    value: '{vpc_name}'
+  internet_gateway_name:
+    ignore: true
+    inherit: true
+    value: '{vpc_name}'
+  subnet_name:
+    ignore: true
+    inherit: true
+    value: dmz-1
+  nat_gateway_name:
+    ignore: true
+    inherit: true
+    value: '{subnet_name}'
+events:
+  onchange:
+    update:
+      dhcp-options: {}
+      internet-gateway: {}
+      vpc-dhcp-association: {}
+      vpc-cidr-association:
+        - args:
+            cidr_block: '${cidrsubnet([for parts in [split("/", aws_vpc.this.cidr_block)]: join("/", [parts[0], parts[1] - 2])][0], 2, 1)}'
+        - args:
+            cidr_block: '${cidrsubnet([for parts in [split("/", aws_vpc.this.cidr_block)]: join("/", [parts[0], parts[1] - 2])][0], 2, 2)}'
+      subnet:
+        - args:
+            az: a
+            cidr_block: '${cidrsubnet(data.aws_vpc.this.cidr_block, 8, 0)}'
+        - args:
+            az: b
+            cidr_block: '${cidrsubnet(data.aws_vpc.this.cidr_block, 8, 1)}'
+        - args:
+            az: c
+            cidr_block: '${cidrsubnet(data.aws_vpc.this.cidr_block, 8, 2)}'
+      nat-gateway:
+        - args:
+            az: a
+        - args:
+            az: b
+        - args:
+            az: c

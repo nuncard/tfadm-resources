@@ -1,0 +1,14 @@
+{
+  "resource": {
+    "aws_vpc_ipv4_cidr_block_association": {
+      "assoc-1b2d9227655b7863b18a621fb1681ffd": {
+        "cidr_block": "${cidrsubnet([for parts in [split(\"/\", aws_vpc.this.cidr_block)]: join(\"/\", [parts[0], parts[1] - 2])][0], 2, 2)}",
+        "vpc_id": "${aws_vpc.this.id}"
+      },
+      "assoc-8cb30f71ee696657de1322feff1264f3": {
+        "cidr_block": "${cidrsubnet([for parts in [split(\"/\", aws_vpc.this.cidr_block)]: join(\"/\", [parts[0], parts[1] - 2])][0], 2, 1)}",
+        "vpc_id": "${aws_vpc.this.id}"
+      }
+    }
+  }
+}

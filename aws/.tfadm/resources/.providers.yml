@@ -1,0 +1,32 @@
+parent: .aws
+description: Provider configurations.
+source: providers.tf.json
+address: provider
+properties:
+  assume_role_arn:
+    value: null
+    description: Amazon Resource Name (ARN) of the IAM Role to assume.
+    ignore: true
+  aws:
+    properties:
+      assume_role:
+        properties:
+          role_arn:
+            value: '{_[assume_role_arn]}'
+      default_tags:
+        use: default_tags/tags
+        properties:
+          domain:
+            use: Domain
+            value: '{_[domain]}'
+          environment:
+            use: Environment
+            value: '{_[environment]}'
+          region:
+            use: Region
+            value: '{_[region]}'
+          managed_by:
+            use: ManagedBy
+            value: terraform
+      region:
+        value: '{_[region]}'

@@ -1,0 +1,57 @@
+extends: .filter/dynamic
+parent: vpc
+description: >-
+  Associates a set of DHCP options with the specified VPC.
+
+  Removing the DHCP options association automatically sets AWS's `default` DHCP options set to the
+  VPC.
+
+  After you associate the options with the VPC, any existing instances and all new instances that
+  you launch in that VPC use the options. You don't need to restart or relaunch the instances. They
+  automatically pick up the changes within a few hours, depending on how frequently the instance
+  renews its DHCP lease. You can explicitly renew the lease using the operating system on the
+  instance.
+path: dhcp_options_name
+source: dhcp-association.tf.json
+address: data/aws_vpc_dhcp_options/this
+template:
+  data:
+    data:
+      aws_vpc_dhcp_options:
+        this:
+          dynamic:
+            filter:
+              for_each: {}
+              content:
+                name: '${format("tag:%s", filter.key)}'
+                values: '${[filter.value]}'
+    resource:
+      aws_vpc_dhcp_options_association:
+        this:
+          dhcp_options_id: ${data.aws_vpc_dhcp_options.this.id}
+          vpc_id: ${{{vpc_id}}}
+  fields:
+  - resource/aws_vpc_dhcp_options_association/this/vpc_id
+properties:
+  DhcpOptionsId:
+    sync: null
+  dhcp_options_name:
+    default: '{vpc_name}'
+    description: The name of the DHCP option set to associate with the VPC.
+    expr: vpc_name if this == '{vpc_name}' else this
+    required: true
+    sync: Tags/Name
+    use: dynamic/filter/for_each/Name
+  tags:
+    description: null
+    ignore: true
+methods:
+  sync:
+    describe:
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId}
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=tag:Name,Values={dhcp_options_name}
+    when: dhcp_options_name | default(None) is not none
+  terraform:
+    import:
+      address: aws_vpc_dhcp_options_association.this
+      id: '{VpcId}'

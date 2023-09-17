@@ -1,0 +1,46 @@
+extends: .vpc/tags-all
+parent: vpc
+description: Associates a secondary IPv4 CIDR block with the specified VPC.
+path: cidr_block
+source: cidr-associations.tf.json
+address: resource/aws_vpc_ipv4_cidr_block_association/{association_id_}
+properties:
+  vpc_name:
+    sync: Tags/Name
+  vpc_id:
+    ignore: null
+  VpcId:
+    sync: null
+  cidr_block:
+    description: >-
+      An IPv4 CIDR block to associate with the VPC. For example, 10.1.0.0/16. You cannot specify an
+      IPv4 CIDR block larger than /16.
+    primary_key: true
+    sync: CidrBlock
+  association_id_:
+    expr: '"{}.{}".format(cidr_block, vpc_id_)'
+    format: assoc-{}
+    hash: md5
+    ignore: true
+    sync: false
+    when: cidr_block is defined and vpc_id_ is defined
+  AssociationId:
+    description: >-
+      The association ID for an IPv4 CIDR block associated with the VPC with which you want to sync.
+    ignore: true
+  tags:
+    description: null
+    ignore: true
+methods:
+  sync:
+    describe:
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=cidr-block-association.association-id,Values={AssociationId} Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=cidr-block-association.cidr-block,Values={cidr_block} Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=tag:Name,Values={vpc_name} Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=is-default,Values=false
+    when: vpc_name | default(None) is not none
+  terraform:
+    import:
+      id: '{AssociationId}'

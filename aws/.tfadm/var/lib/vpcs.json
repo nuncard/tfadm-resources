@@ -1,0 +1,7 @@
+{
+  "module": {
+    "vpc-d3a710c04cf6f19e72101295f40ea03e": {
+      "source": "./example.com/vpcs/dev/eu-west-1"
+    }
+  }
+}

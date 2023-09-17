@@ -1,0 +1,58 @@
+extends: .tags-all
+parent: .aws
+description: >-
+  Allocates an Elastic IP address to your AWS account.
+
+  After you allocate the Elastic IP address you can associate it with an instance or network
+  interface. After you release an Elastic IP address, it is released to the IP address pool and
+  can be allocated to a different AWS account.
+
+  You can allocate an Elastic IP address from an address pool owned by AWS or from an address pool
+  created from a public IPv4 address range that you have brought to AWS for use with your AWS
+  resources using bring your own IP addresses (BYOIP).
+
+  If you release an Elastic IP address, you might be able to recover it. You cannot recover an
+  Elastic IP address that you released after it is allocated to another AWS account. To attempt to
+  recover an Elastic IP address that you released, specify it in this operation.
+source: elastic-ips.tf.json
+address: resource/aws_eip/{allocation_id_}
+properties:
+  allocation_name:
+    inherit: true
+    primary_key: true
+    sync: Tags/Name
+    use: tags/Name
+  allocation_id_:
+    ignore: true
+    inherit: true
+    required: true
+    sync: false
+  allocation_id:
+    computed: '{}'
+    expr: '"aws_eip.{}.id".format(allocation_id_)'
+    ignore: true
+    inherit: true
+    sync: false
+    when: allocation_id_ is defined
+  AllocationId:
+    ignore: true
+    inherit: true
+  public_ipv4_pool:
+    description: >-
+      The ID of an address pool that you own or `amazon`.
+    sync: PublicIpv4Pool
+  customer_owned_ipv4_pool:
+    description: >-
+      The ID of a customer-owned address pool. Use this parameter to let Amazon EC2 select an
+      address from the address pool. Alternatively, specify a specific address from the address
+      pool.
+  network_border_group:
+    description: >-
+      A unique set of Availability Zones, Local Zones, or Wavelength Zones from which AWS advertises
+      IP addresses. Use this parameter to limit the IP address to this location. IP addresses cannot
+      move between network border groups.
+    sync: NetworkBorderGroup
+methods:
+  terraform:
+    import:
+      id: '{AllocationId}'

@@ -1,0 +1,14 @@
+description: Tags to assign to all resources.
+properties:
+  domain:
+    sync: Tags/Domain
+  environment:
+    sync: Tags/Environment
+  tags:
+    description: A map of tags to assign to the resource.
+    sync: Tags
+    unset:
+      - Domain
+      - Environment
+      - ManagedBy
+      - Region

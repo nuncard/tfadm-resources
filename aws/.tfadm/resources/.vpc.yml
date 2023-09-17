@@ -1,0 +1,10 @@
+extends: .filter/tags
+description: A VPC is an isolated portion of the AWS Cloud.
+path: vpc_name
+source: vpc.tf.json
+address: data/aws_vpc/this
+properties:
+  vpc_name:
+    ignore: null
+    required: true
+    use: tags/Name

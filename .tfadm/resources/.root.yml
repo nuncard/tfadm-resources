@@ -1,0 +1,11 @@
+description: Root configuration, shared across all resources.
+path: environment
+source: '{domain}/locals.tf.json'
+properties:
+  environment:
+    description: Environment name.
+  domain:
+    description: Root domain name used to identify services provided through the Internet.
+    inherit: true
+    translate: null
+    value: 'example.com'

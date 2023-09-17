@@ -1,0 +1,9 @@
+extends:
+- .elastic-ip
+- .subnet/tags-all
+parent: subnet
+properties:
+  allocation_name:
+    value: '{subnet_name}'
+  allocation_id_:
+    value: '{subnet_id_}'

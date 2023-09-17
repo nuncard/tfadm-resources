@@ -1,0 +1,7 @@
+.vscode
+/aws/*
+!/aws/.tfadm/
+!/aws/*.md
+!/aws/example.com/
+*.ignore
+*.ignore.*

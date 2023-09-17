@@ -1,0 +1,96 @@
+extends: .subnet/tags-all
+parent: .subnet/elastic-ip
+description: >-
+  Network Address Translation (NAT) service.
+
+  You can use a NAT gateway so that instances in a private subnet can connect to services outside
+  your VPC but external services cannot initiate a connection with those instances.
+path: nat_gateway_name
+source: nat-gateways.tf.json
+address: resource/aws_nat_gateway/{nat_gateway_id_}
+properties:
+  VpcId:
+    sync: null
+  availability_zone:
+    sync: AvailabilityZone
+  subnet_name:
+    sync: SubnetName
+  subnet_id:
+    ignore: null
+  SubnetId:
+    sync: null
+  allocation_name:
+    primary_key: null
+    sync: Tags/Name
+  allocation_id:
+    ignore: null
+  AllocationId:
+    sync: null
+  nat_gateway_name:
+    default: '{subnet_name}'
+    description: The name of the NAT gateway.
+    primary_key: true
+    sync: Tags/Name
+    use: tags/Name
+  nat_gateway_id_:
+    expr: '"{}.{}".format(nat_gateway_name, subnet_id_)'
+    format: nat-{}
+    hash: md5
+    ignore: true
+    sync: false
+    when: nat_gateway_name is defined and subnet_id_ is defined
+  nat_gateway_id:
+    computed: '{}'
+    expr: '"aws_nat_gateway.{}.id".format(nat_gateway_id_)'
+    ignore: true
+    sync: false
+    when: nat_gateway_id_ is defined
+  NatGatewayId:
+    description: The ID of the NAT gateway with which you want to sync.
+    ignore: true
+  connectivity_type:
+    description: >-
+      Indicates whether the NAT gateway supports public or private connectivity. The default is
+      public connectivity. Valid Values: private, public.
+    sync: ConnectivityType
+  private_ip:
+    default: '${{cidrhost(aws_subnet.{subnet_id_}.cidr_block, -2)}}'
+    description: >-
+      The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a
+      private IPv4 address will be automatically assigned.
+    sync: false
+  secondary_private_ip_address_count:
+    description: >-
+      The number of secondary private IPv4 addresses you want to assign to the NAT gateway.
+    when: connectivity_type == "private"
+  secondary_private_ip_addresses:
+    description: >-
+      A list of secondary private IPv4 addresses to assign to the NAT Gateway.
+    type: list
+    when: connectivity_type == "public"
+methods:
+  sync:
+    parent: vpc
+    describe:
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=nat-gateway-id,Values={NatGatewayId}
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=subnet-id,Values={SubnetId}
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=tag:Name,Values={nat_gateway_name}
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=vpc-id,Values={VpcId}
+    when: nat_gateway_name | default(None) is not none
+  terraform:
+    import:
+      id: '{NatGatewayId}'
+events:
+  onchange:
+    update:
+      .subnet/elastic-ip:
+        unset:
+          - connectivity_type
+          - private_ip
+          - secondary_private_ip_address_count
+          - secondary_private_ip_addresses
+        when: connectivity_type | default("public") == "public"
+  onimport:
+    terraform/import:
+      .subnet/elastic-ip:
+        when: AllocationId is defined

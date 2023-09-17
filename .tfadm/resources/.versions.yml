@@ -1,0 +1,10 @@
+parent: .root
+description: Version requirements for Terraform and providers.
+source: versions.tf.json
+address: terraform
+properties:
+  required_version:
+    value: ~> 1.0
+    description: >-
+      Specifies which versions of Terraform can be used with your configuration. Accepts a version
+      constraint string.

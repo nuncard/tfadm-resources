@@ -1,0 +1,7 @@
+extends: .filter/tags
+properties:
+  domain:
+    ignore: null
+    use: dynamic/filter/for_each/Domain
+  environment:
+    use: dynamic/filter/for_each/Environment

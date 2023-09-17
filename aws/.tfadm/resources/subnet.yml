@@ -1,0 +1,112 @@
+depends_on: vpc-cidr-association
+extends: .vpc/tags-all
+parent: vpc
+description: >-
+  A subnet is a range of IP addresses in your VPC.
+
+  A subnet CIDR block must not overlap the CIDR block of an existing subnet in the VPC. After you create a subnet, you can't change its CIDR block.
+
+  The allowed size for an IPv4 subnet is between a /28 netmask (16 IP addresses) and a /16 netmask (65,536 IP addresses). AWS reserves both the first four and the last IPv4 address in each subnet's CIDR block. They're not available for your use.
+
+  If you add more than one subnet to a VPC, they're set up in a star topology with a logical router in the middle.
+
+  When you stop an instance in a subnet, it retains its private IPv4 address. It's therefore possible to have a subnet with no running instances (they're all stopped), but no remaining IP addresses available.
+path: az/subnet_name/cidr_block
+source: 'subnets/{subnet_name}/subnets.tf.json'
+address: resource/aws_subnet/{subnet_id_}
+properties:
+  vpc_id:
+    expr: '"data.aws_vpc.this.id"'
+    ignore: null
+  VpcId:
+    sync: null
+  az:
+    default: a
+    description: >-
+      The Availability Zone or Local Zone for the subnet (without region name prefix, e.g., 'a')
+    expr: this.replace(region, "") if this else this
+    ignore: true
+    required: true
+    sync: false
+  availability_zone:
+    inherit: true
+    primary_key: true
+    sync: AvailabilityZone
+    value: '{region}{az}'
+  subnet_name:
+    description: The name of the subnet.
+    sync: Tags/Name
+    use: tags/Name
+  subnet_id_:
+    expr: '"{}.{}.{}".format(subnet_name, availability_zone, vpc_id_)'
+    format: subnet-{}
+    hash: md5
+    ignore: true
+    inherit: true
+    required: true
+    sync: false
+    when: subnet_name is defined and availability_zone is defined and vpc_id_ is defined
+  subnet_id:
+    computed: '{}'
+    expr: '"aws_subnet.{}.id".format(subnet_id_)'
+    ignore: true
+    inherit: true
+    sync: false
+    when: subnet_id_ is defined
+  SubnetId:
+    description: The ID of the subnet with which you want to sync.
+    ignore: true
+    inherit: true
+  ipv6_native:
+    sync: Ipv6Native
+  cidr_block:
+    description: >-
+      The IPv4 network range for the VPC, in CIDR notation. For example, 10.0.0.0/16. You cannot specify an IPv4 CIDR block larger than /16.
+    inherit: false
+    required: true
+    sync: CidrBlock
+  enable_lni_at_device_index:
+    description: >-
+      Indicates the device position for local network interfaces in this subnet. For example, 1 indicates local network interfaces in this subnet are the secondary network interface (eth1). A local network interface cannot be the primary network interface (eth0).
+    sync: EnableLniAtDeviceIndex
+  enable_resource_name_dns_a_record_on_launch:
+    description: >-
+      Indicates whether to respond to DNS queries for instance hostnames with DNS A records. Default is false.
+    sync: PrivateDnsNameOptionsOnLaunch/EnableResourceNameDnsARecord
+  map_public_ip_on_launch:
+    description: >-
+      Specify true to indicate that instances launched into the subnet should be assigned a public IP address. Default is false.
+    sync: MapPublicIpOnLaunch
+  private_dns_hostname_type_on_launch:
+    description: >-
+      The type of hostnames to assign to instances in the subnet at launch. Valid values: ip-name, resource-name.
+    sync: PrivateDnsNameOptionsOnLaunch/HostnameType
+    # tags_:
+    #   use: tags
+    #   properties:
+    #     availability_zone:
+    #       value: '{_[availability_zone]}'
+methods:
+  sync:
+    describe:
+      - .tfadm/bin/describe-subnets.sh {profile} {region} Name=subnet-id,Values={SubnetId} Name=ipv6-native,Values=false
+      - .tfadm/bin/describe-subnets.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=tag:Name,Values={subnet_name} Name=availability-zone,Values={availability_zone} Name=ipv6-native,Values=false
+      - .tfadm/bin/describe-subnets.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=tag:Name,Values={subnet_name} Name=ipv6-native,Values=false
+      - .tfadm/bin/describe-subnets.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=availability-zone,Values={availability_zone} Name=ipv6-native,Values=false
+      - .tfadm/bin/describe-subnets.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=ipv6-native,Values=false
+    when:
+      subnet_name: dmz-*
+  terraform:
+    import:
+      id: '{SubnetId}'
+events:
+  oninit:
+    create:
+      .subnet/providers: {}
+      .subnet/versions: {}
+      .subnet/vpc: {}
+module:
+  file: .tfadm/var/lib/subnets.json
+  name: '{subnet_id_}'
+  args:
+    - availability_zone

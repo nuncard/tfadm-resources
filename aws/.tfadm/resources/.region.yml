@@ -1,0 +1,12 @@
+parent: .aws
+description: Each Region is a separate geographic area.
+path: region
+properties:
+  region:
+    required: true
+    sync: RegionName
+methods:
+  sync:
+    describe:
+    - aws ec2 describe-regions --profile {profile} --region eu-west-1 --region-names {region} --query Regions --no-paginate --output json
+    - aws ec2 describe-regions --profile {profile} --region eu-west-1 --query Regions --no-paginate --output json

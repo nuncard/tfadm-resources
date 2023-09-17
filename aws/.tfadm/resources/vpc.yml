@@ -1,0 +1,89 @@
+depends_on: dhcp-options
+extends: .tags-all
+parent: .region
+address: resource/aws_vpc/this
+description: A VPC is an isolated portion of the AWS Cloud.
+path: cidr_block
+source: vpcs/{vpc_name}/{region}/vpc.tf.json
+properties:
+  vpc_name:
+    default: '{environment}'
+    description: The name of the VPC.
+    sync: Tags/Name
+    use: tags/Name
+  vpc_id_:
+    expr: '"{}.{}.{}".format(vpc_name, region, domain)'
+    format: vpc-{}
+    hash: md5
+    ignore: true
+    required: true
+    inherit: true
+    sync: false
+    when: vpc_name is defined and region is defined and domain is defined
+  vpc_id:
+    computed: '{}'
+    expr: '"aws_vpc.this.id"'
+    ignore: true
+    inherit: true
+    sync: false
+  VpcId:
+    description: The ID of the VPC with which you want to sync.
+    ignore: true
+    inherit: true
+  DhcpOptionsId:
+    ignore: true
+    description: The ID of the DHCP option set with which you want to sync.
+    inherit: true
+  cidr_block:
+    description: >-
+      The IPv4 network range for the VPC, in CIDR notation. For example, 10.0.0.0/16. You cannot
+      specify an IPv4 CIDR block larger than /16.
+    inherit: false
+    required: true
+    sync: CidrBlock
+  instance_tenancy:
+    description: >-
+      The tenancy options for instances launched into the VPC. For `default`, instances are launched
+      with shared tenancy by default. You can launch instances with any tenancy into a shared
+      tenancy VPC. For `dedicated`, instances are launched as dedicated tenancy instances by
+      default. You can only launch instances with a tenancy of `dedicated` or `host` into a
+      dedicated tenancy VPC.
+    sync: InstanceTenancy
+  enable_dns_support:
+    description: >-
+      Whether DNS resolution through the Amazon DNS server is supported for the VPC.
+      Defaults to `false`.
+    sync: EnableDnsSupport/Value
+  enable_dns_hostnames:
+    description: >-
+      Whether instances launched in the VPC receive public DNS hostnames that correspond to their
+      public IP addresses. Defaults to false.
+    sync: EnableDnsHostnames/Value
+  enable_network_address_usage_metrics:
+    description: Whether Network Address Usage metrics are enabled for your VPC. Defaults to `false`.
+    sync: EnableNetworkAddressUsageMetrics/Value
+methods:
+  sync:
+    list:
+    - .tfadm/bin/list-vpcs.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=is-default,Values=false
+    - .tfadm/bin/list-vpcs.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=is-default,Values=false
+    - .tfadm/bin/list-vpcs.sh {profile} {region} Name=cidr-block-association.cidr-block,Values={cidr_block} Name=is-default,Values=false
+    - .tfadm/bin/list-vpcs.sh {profile} {region} Name=tag:Name,Values={vpc_name} Name=is-default,Values=false
+    - .tfadm/bin/list-vpcs.sh {profile} {region} Name=is-default,Values=false
+    describe:
+    - .tfadm/bin/describe-vpcs.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=is-default,Values=false
+    - .tfadm/bin/describe-vpcs.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=is-default,Values=false
+    - .tfadm/bin/describe-vpcs.sh {profile} {region} Name=cidr-block-association.cidr-block,Values={cidr_block} Name=is-default,Values=false
+    - .tfadm/bin/describe-vpcs.sh {profile} {region} Name=tag:Name,Values={vpc_name} Name=is-default,Values=false
+    when: vpc_name | default(None) is not none
+  terraform:
+    import:
+      id: '{VpcId}'
+events:
+  oninit:
+    create:
+      .vpc/providers: {}
+      .vpc/versions: {}
+module:
+  name: '{vpc_id_}'
+  file: .tfadm/var/lib/vpcs.json

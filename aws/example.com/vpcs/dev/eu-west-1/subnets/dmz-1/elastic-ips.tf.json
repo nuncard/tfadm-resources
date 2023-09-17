@@ -1,0 +1,24 @@
+{
+  "resource": {
+    "aws_eip": {
+      "subnet-27a4b58a50e2d28b30ab2d9c9a2af708": {
+        "tags": {
+          "AvailabilityZone": "eu-west-1a",
+          "Name": "dmz-1"
+        }
+      },
+      "subnet-565e16e7cf5ade91adf2ace99098004e": {
+        "tags": {
+          "AvailabilityZone": "eu-west-1b",
+          "Name": "dmz-1"
+        }
+      },
+      "subnet-d0e626409672ff813d8bdd64ef1d539c": {
+        "tags": {
+          "AvailabilityZone": "eu-west-1c",
+          "Name": "dmz-1"
+        }
+      }
+    }
+  }
+}

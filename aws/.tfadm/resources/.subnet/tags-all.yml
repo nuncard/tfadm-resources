@@ -1,0 +1,6 @@
+extends: .vpc/tags-all
+properties:
+  availability_zone:
+    ignore: null
+    sync: Tags/AvailabilityZone
+    use: tags/AvailabilityZone
