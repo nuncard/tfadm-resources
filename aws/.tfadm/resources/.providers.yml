@@ -1,5 +1,9 @@
 parent: .aws
-description: Provider configurations.
+description: >-
+  Amazon Web Services (AWS) provider.
+
+  Use the AWS provider to interact with the many resources supported by AWS.
+  You must configure the provider with the proper credentials before you can use it.
 source: providers.tf.json
 address: provider
 properties:

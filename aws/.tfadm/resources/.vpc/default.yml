@@ -1,5 +1,7 @@
 extends: vpc
 properties:
+  tags:
+    inherit: true
   dhcp_options_name:
     ignore: true
     inherit: true

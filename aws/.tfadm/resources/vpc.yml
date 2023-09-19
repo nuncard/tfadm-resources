@@ -27,12 +27,12 @@ properties:
     inherit: true
     sync: false
   VpcId:
-    description: The ID of the VPC with which you want to sync.
+    description: The ID of the VPC you want to sync with.
     ignore: true
     inherit: true
   DhcpOptionsId:
     ignore: true
-    description: The ID of the DHCP option set with which you want to sync.
+    description: The ID of the DHCP option set you want to sync with.
     inherit: true
   cidr_block:
     description: >-

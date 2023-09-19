@@ -46,7 +46,7 @@ properties:
     sync: false
     when: nat_gateway_id_ is defined
   NatGatewayId:
-    description: The ID of the NAT gateway with which you want to sync.
+    description: The ID of the NAT gateway you want to sync with.
     ignore: true
   connectivity_type:
     description: >-

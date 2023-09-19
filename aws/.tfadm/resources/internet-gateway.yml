@@ -26,7 +26,7 @@ properties:
     sync: Tags/Name
     use: tags/Name
   InternetGatewayId:
-    description: The ID of the internet gateway with which you want to sync.
+    description: The ID of the internet gateway you want to sync with.
     ignore: true
 methods:
   sync:

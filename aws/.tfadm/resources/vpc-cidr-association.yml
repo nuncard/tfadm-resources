@@ -26,7 +26,7 @@ properties:
     when: cidr_block is defined and vpc_id_ is defined
   AssociationId:
     description: >-
-      The association ID for an IPv4 CIDR block associated with the VPC with which you want to sync.
+      The association ID for an IPv4 CIDR block associated with the VPC you want to sync with.
     ignore: true
   tags:
     description: null

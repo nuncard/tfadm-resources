@@ -1,5 +1,6 @@
 extends: .versions
 parent: .aws
+description: Version requirements for AWS provider.
 template:
   data:
     terraform:

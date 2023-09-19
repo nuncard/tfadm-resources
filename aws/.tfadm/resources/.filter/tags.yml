@@ -1,5 +1,6 @@
 extends: .tags-all
-description: Tags that, together with the name, allow you to uniquely identify a resource.
+description: >-
+  Tags that, together with the name, allow you to uniquely identify a resource.
 properties:
   domain:
     ignore: null

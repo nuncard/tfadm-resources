@@ -1,4 +1,4 @@
-description: Tags to assign to all resources.
+description: A map of tags to assign to the resource.
 properties:
   domain:
     sync: Tags/Domain

@@ -1,5 +1,5 @@
 parent: .root
-description: Version requirements for Terraform and providers.
+description: Version requirements for Terraform.
 source: versions.tf.json
 address: terraform
 properties:

@@ -18,6 +18,8 @@ source: elastic-ips.tf.json
 address: resource/aws_eip/{allocation_id_}
 properties:
   allocation_name:
+    description: >-
+      The name of the allocation.
     inherit: true
     primary_key: true
     sync: Tags/Name

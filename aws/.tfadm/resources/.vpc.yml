@@ -1,5 +1,8 @@
 extends: .filter/tags
-description: A VPC is an isolated portion of the AWS Cloud.
+description: >-
+  Provides details about a specific VPC.
+
+  This resource can prove useful when a module accepts a vpc id as an input variable and needs to, for example, determine the CIDR block of that VPC.
 path: vpc_name
 source: vpc.tf.json
 address: data/aws_vpc/this

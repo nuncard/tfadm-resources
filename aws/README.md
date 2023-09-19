@@ -2,8 +2,6 @@
 
 A set of ready-for-use [tfadm](https://github.com/nuncard/tfadm) resources for generating and modifying [terraform code](https://developer.hashicorp.com/terraform) to manage AWS services.
 
-[Amazon Web Services (AWS)](https://aws.amazon.com/) is a subsidiary of [Amazon](https://www.aboutamazon.com/) that provides on-demand cloud computing platforms and APIs to individuals, companies, and governments, on a metered, pay-as-you-go basis.
-
 ## Dependencies
 
 - [tfadm-resources-code](../README.md)
@@ -77,9 +75,5 @@ yq ".properties.tags.unset = ([\"$tags_environment\", \"$tags_domain\", \"$tags_
 
 Then, follow the documentation for the following AWS services:
 
-- [Virtual Private Cloud (VPC)](./vpc-resources.md);
+- [Virtual Private Cloud (VPC)](vpc.md);
 -  *(More to come in the future).*
-
-## See Also
-
-- [Terraform AWS provider](https://registry.terraform.io/providers/hashicorp/aws/latest)

@@ -54,7 +54,7 @@ properties:
     sync: false
     when: subnet_id_ is defined
   SubnetId:
-    description: The ID of the subnet with which you want to sync.
+    description: The ID of the subnet you want to sync with.
     ignore: true
     inherit: true
   ipv6_native:
