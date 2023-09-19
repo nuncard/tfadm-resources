@@ -1,99 +1,122 @@
-// [.root](../root.md) / [.aws](./aws.md) / [.region](./region.md) /
+# tfadm-resources-aws-vpc
 
-# vpc
+A set of ready-for-use [tfadm](https://github.com/nuncard/tfadm) resources for generating and modifying [Terraform code](https://developer.hashicorp.com/terraform) to manage [Amazon Virtual Private Cloud (VPC)](https://aws.amazon.com/vpc/) services.
 
-A VPC is an isolated portion of the AWS Cloud.
+## In a Nutshell
 
-## Usage
-
-```
-tfadm COMMAND [OPTIONS] vpc [{environment}/{region}/{cidr_block}]...
-tfadm COMMAND [OPTIONS] vpc [{domain}/vpcs/{vpc_name}/{region}]...
-```
-
-## Properties
-
-- **`tags`**
-
-  A map of tags to assign to the resource.
-
-- **`vpc_name`**
-
-  The name of the VPC.
-
-  *default: `{environment}`*
-
-- **`VpcId`**
-
-  The ID of the VPC with which you want to sync.
-
-- **`DhcpOptionsId`**
-
-  The ID of the DHCP option set with which you want to sync.
-
-- **`cidr_block`**
-
-  The IPv4 network range for the VPC, in CIDR notation. For example, `10.0.0.0/16`. You cannot specify an IPv4 CIDR block larger than `/16`.
-
-- **`instance_tenancy`**
-  
-  The tenancy options for instances launched into the VPC. For `default`, instances are launched with shared tenancy by default. You can launch instances with any tenancy into a shared tenancy VPC. For `dedicated`, instances are launched as dedicated tenancy instances by default. You can only launch instances with a tenancy of `dedicated` or `host` into a dedicated tenancy VPC.
-
-- **`enable_dns_support`**
-  
-  Whether DNS resolution through the Amazon DNS server is supported for the VPC. Defaults to `false`.
-
-- **`enable_dns_hostnames`**
-
-  Whether instances launched in the VPC receive public DNS hostnames that correspond to their public IP addresses. Defaults to `false`.
-
-- **`enable_network_address_usage_metrics`**
-
-  Whether Network Address Usage metrics are enabled for your VPC. Defaults to `false`.
-
-## Methods
-
-### sync.describe()
+Switch to the latest version of terraform (or use any other version older than `1.0`).
 
 ```bash
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=is-default,Values=false" || \
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=is-default,Values=false" || \
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=cidr-block-association.cidr-block,Values={cidr_block}" "Name=is-default,Values=false" || \
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=tag:Name,Values={vpc_name}" "Name=is-default,Values=false"
+tfswitch -u
 ```
 
-### sync.list()
+Generate the Terraform code for `dev` VPC.
 
 ```bash
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=cidr-block-association.cidr-block,Values={cidr_block}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=tag:Name,Values={vpc_name}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=is-default,Values=false"
+# It should generate the same content as the example.com directory in this
+# repository.
+tfadm create .vpc/default --overwrite dev/eu-west-1/10.0.0.0/16
 ```
 
-### sync.when() [^1]
-
-```
-vpc_name | default(None) is not none
-```
-
-### terraform.import()
+Generate the Terraform code for `qa` and `prd` VPCs.
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_vpc.this" "{VpcId}"
+tfadm create .vpc/default qa/eu-west-1/10.4.0.0/16 prd/eu-west-1/10.8.0.0/16
 ```
 
-## Events
+Add `Test` tag to all objects that supports tags.
 
-### oninit
+```bash
+tfadm update .vpc/default - example.com/vpcs/*/* <<EOT
+tags:
+  Test: '123'
+EOT
+```
 
-- **create**
-  - .vpc/providers
-  - .vpc/versions
+Convert the existing infrastructure to terraform code.
 
-## See Also
+```bash
+tfadm sync --recursive - <<EOF
+environment: qa
+region: eu-west-1
+EOF
+```
 
-- [Terraform resource: `aws_vpc`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc)
+Add the `--import` flag to the previous command and also import existing infrastructure into the terraform state.
 
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
+Use `cd PATH` to change to one of the created directories.
+
+Initialize the working directory and generate a speculative execution plan, showing what actions terraform would take to apply the current configuration.
+
+```bash
+terraform init && terraform plan
+```
+
+Apart from adding some new tags, you should not be shown any other change.
+
+## Resources
+
+The `tfadm-resources-aws-vpc` set includes the following resources *(more to come in the future)*:
+
+- [dhcp-options](.tfadm/resources/dhcp-options.md) `{environment}/{region}/{domain_name}`
+
+  A set of DHCP options for your VPC.
+
+- [vpc](.tfadm/resources/vpc.md) `{environment}/{region}/{cidr_block}`
+
+  A VPC is an isolated portion of the AWS Cloud.
+
+  - [internet-gateway](.tfadm/resources/internet-gateway.md) `{environment}/{region}/{internet_gateway_name}`
+
+    An internet gateway allows communication between your VPC and the internet.
+
+  - [vpc-cidr-association](.tfadm/resources/vpc-cidr-association.md) `{environment}/{region}/{cidr_block}`
+
+    Associates a secondary IPv4 CIDR block with the specified VPC.
+
+  - [vpc-dhcp-association](.tfadm/resources/vpc-dhcp-association.md) `{environment}/{region}/{dhcp_options_name}`
+
+    Associates a set of DHCP options with the specified VPC.
+
+  - [subnet](.tfadm/resources/subnet.md) `{environment}/{region}/{az}/{subnet_name}/{cidr_block}`
+
+    A subnet is a range of IP addresses in your VPC.
+
+    - [nat-gateway](.tfadm/resources/nat-gateway.md) `{environment}/{region}/{az}/{subnet_name}/{nat_gateway_name}`
+
+      Network Address Translation (NAT) service.
+
+Use `tfadm resources RESOURCE` to check out the full configuration of a given resource.
+
+## File Structure
+
+The terraform code is generated following the file structure represented below.
+
+```
+.
+└── {domain}
+    ├── dhcp-options
+    │   └── {dhcp_options_name}
+    │       └── {region}
+    │           ├── dhcp-options.tf.json
+    │           ├── providers.tf.json
+    │           └── versions.tf.json
+    └── vpcs
+        └── {vpc_name}
+            └── {region}
+                ├── dhcp-association.tf.json
+                ├── internet-gateway.tf.json
+                ├── providers.tf.json
+                ├── subnets
+                │   └── {subnet_name}
+                │       ├── elastic-ips.tf.json
+                │       ├── nat-gateways.tf.json
+                │       ├── providers.tf.json
+                │       ├── subnets.tf.json
+                │       ├── versions.tf.json
+                │       └── vpc.tf.json
+                ├── versions.tf.json
+                └── vpc.tf.json
+```
+
+*(**TODO:** Generate also the `terragrunt.hcl.json` files for [terragrunt](https://terragrunt.gruntwork.io/), under the hood).*
