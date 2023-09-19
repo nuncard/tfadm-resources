@@ -33,8 +33,6 @@ template:
   fields:
   - resource/aws_vpc_dhcp_options_association/this/vpc_id
 properties:
-  DhcpOptionsId:
-    sync: null
   dhcp_options_name:
     default: '{vpc_name}'
     description: The name of the DHCP option set to associate with the VPC.
@@ -42,6 +40,8 @@ properties:
     required: true
     sync: Tags/Name
     use: dynamic/filter/for_each/Name
+  DhcpOptionsId:
+    sync: null
   tags:
     description: null
     ignore: true
