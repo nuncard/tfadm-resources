@@ -1,13 +1,15 @@
 # .root
 
-Root configuration, shared across all resources.
-
-## Usage
+## Synopsis
 
 ```
 tfadm COMMAND [OPTIONS] .root [{environment}]...
 tfadm COMMAND [OPTIONS] .root [{domain}]...
 ```
+
+## Description
+
+Root configuration, shared across all resources.
 
 ## Properties
 
@@ -18,3 +20,11 @@ tfadm COMMAND [OPTIONS] .root [{domain}]...
 - **`domain`**
 
   Root domain name used to identify services provided through the Internet.
+
+## Children
+
+- [.aws]
+- [.versions]
+
+[.aws]: ../../aws/.tfadm/resources/README.md
+[.versions]: .versions.md
