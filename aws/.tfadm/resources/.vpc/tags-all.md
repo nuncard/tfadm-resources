@@ -2,7 +2,7 @@
 
 # .vpc/tags-all
 
-**Extends:** [.tags-all](../.tags-all.md)
+- **Extends:** [.tags-all](../.tags-all.md)
 
 ## Synopsis
 

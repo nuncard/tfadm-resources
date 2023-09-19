@@ -2,7 +2,7 @@
 
 # vpc-cidr-association
 
-**Extends:** [.vpc/tags-all](.vpc/tags-all.md)
+- **Extends:** [.vpc/tags-all](.vpc/tags-all.md)
 
 ## Synopsis
 

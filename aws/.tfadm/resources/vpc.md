@@ -2,9 +2,8 @@
 
 # vpc
 
-**Depends on:** [dhcp-options]
-
-**Extends:** [.tags-all]
+- **Depends on:** [dhcp-options]
+- **Extends:** [.tags-all]
 
 ## Synopsis
 

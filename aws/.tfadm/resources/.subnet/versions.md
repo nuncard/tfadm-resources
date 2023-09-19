@@ -2,7 +2,7 @@
 
 # .subnet/versions
 
-**Extends:** [.versions](../.versions.md)
+- **Extends:** [.versions](../.versions.md)
 
 ## Synopsis
 

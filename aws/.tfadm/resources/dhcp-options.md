@@ -2,7 +2,7 @@
 
 # dhcp-options
 
-**Extends:** [.tags-all]
+- **Extends:** [.tags-all]
 
 ## Synopsis
 

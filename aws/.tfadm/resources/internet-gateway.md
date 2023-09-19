@@ -2,7 +2,7 @@
 
 # internet-gateway
 
-**Extends:** [.vpc/tags-all]
+- **Extends:** [.vpc/tags-all]
 
 ## Synopsis
 

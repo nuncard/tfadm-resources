@@ -2,7 +2,7 @@
 
 # .subnet/providers
 
-**Extends:** [.vpc/providers](../.vpc/providers.md)
+- **Extends:** [.vpc/providers](../.vpc/providers.md)
 
 ## Synopsis
 

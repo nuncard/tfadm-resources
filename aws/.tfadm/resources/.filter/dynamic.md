@@ -1,6 +1,6 @@
 # .filter/dynamic
 
-**Extends:** [.filter/tags](tags.md)
+- **Extends:** [.filter/tags](tags.md)
 
 ## Synopsis
 

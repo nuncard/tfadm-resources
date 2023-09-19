@@ -2,7 +2,7 @@
 
 # .subnet/elastic-ip
 
-**Extends:** [.elastic-ip], [.subnet/tags-all]
+- **Extends:** [.elastic-ip], [.subnet/tags-all]
 
 ## Synopsis
 

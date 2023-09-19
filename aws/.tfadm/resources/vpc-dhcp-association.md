@@ -2,7 +2,7 @@
 
 # vpc-dhcp-association
 
-**Extends:** [.filter/dynamic](.filter/dynamic.md)
+- **Extends:** [.filter/dynamic](.filter/dynamic.md)
 
 ## Synopsis
 

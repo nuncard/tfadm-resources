@@ -1,6 +1,6 @@
 # .filter/tags
 
-**Extends:** [.tags-all](../.tags-all.md)
+- **Extends:** [.tags-all](../.tags-all.md)
 
 ## Synopsis
 

@@ -2,7 +2,7 @@
 
 # .dhcp-options/providers
 
-**Extends:** [.providers](../.providers.md)
+- **Extends:** [.providers](../.providers.md)
 
 ## Synopsis
 
