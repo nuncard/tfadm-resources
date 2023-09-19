@@ -3,6 +3,7 @@
 # subnet
 
 **Depends on:** [vpc-cidr-association](vpc-cidr-association.md)
+
 **Extends:** [.vpc/tags-all](.vpc/tags-all.md)
 
 ## Synopsis
