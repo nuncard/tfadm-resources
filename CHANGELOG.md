@@ -26,5 +26,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - First release.
 
 [unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.09.19...HEAD
-[2023.09.19]: https://github.com/nuncard/tfadm-resources/releases/tag/2023.09.19
+[2023.09.19]: https://github.com/nuncard/tfadm-resources/compare/2023.09.17...2023.09.19
 [2023.09.17]: https://github.com/nuncard/tfadm-resources/releases/tag/2023.09.17
