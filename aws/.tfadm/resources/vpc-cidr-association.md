@@ -1,15 +1,19 @@
-// [.root](../root.md) / [.aws](./aws.md) / [.region](./region.md) / [vpc](./vpc.md) /
+// [.root] / [.aws] / [.region] / [vpc] /
 
 # vpc-cidr-association
 
-Associates a secondary IPv4 CIDR block with the specified VPC.
+**Extends:** [.vpc/tags-all](.vpc/tags-all.md)
 
-## Usage
+## Synopsis
 
 ```
 tfadm COMMAND [OPTIONS] vpc-cidr-association [{environment}/{region}/{cidr_block}]...
 tfadm COMMAND [OPTIONS] vpc-cidr-association [{domain}/vpcs/{vpc_name}/{region}]...
 ```
+
+## Description
+
+Associates a secondary IPv4 CIDR block with the specified VPC.
 
 ## Properties
 
@@ -19,7 +23,7 @@ tfadm COMMAND [OPTIONS] vpc-cidr-association [{domain}/vpcs/{vpc_name}/{region}]
 
 - **`AssociationId`**
 
-  The association ID for an IPv4 CIDR block associated with the VPC with which you want to sync.
+  The association ID for an IPv4 CIDR block associated with the VPC you want to sync with.
 
 ## Methods
 
@@ -51,3 +55,8 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 - [Terraform resource: `aws_vpc_ipv4_cidr_block_association`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipv4_cidr_block_association)
 
 [^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
+
+[.aws]: README.md
+[.region]: .region.md
+[.root]: ../../../.tfadm/resources/README.md
+[vpc]: vpc.md

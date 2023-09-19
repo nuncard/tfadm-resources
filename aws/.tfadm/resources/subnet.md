@@ -1,6 +1,18 @@
-// [.root](../root.md) / [.aws](./aws.md) / [.region](./region.md) / [vpc](./vpc.md) /
+// [.root] / [.aws] / [.region] / [vpc] /
 
 # subnet
+
+**Depends on:** [vpc-cidr-association](vpc-cidr-association.md)
+**Extends:** [.vpc/tags-all](.vpc/tags-all.md)
+
+## Synopsis
+
+```
+tfadm COMMAND [OPTIONS] subnet [{environment}/{region}/{az}/{subnet_name}/{cidr_block}]...
+tfadm COMMAND [OPTIONS] subnet [{domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}]...
+```
+
+## Description
 
 A subnet is a range of IP addresses in your VPC.
 
@@ -12,18 +24,7 @@ If you add more than one subnet to a VPC, they're set up in a star topology with
 
 When you stop an instance in a subnet, it retains its private IPv4 address. It's therefore possible to have a subnet with no running instances (they're all stopped), but no remaining IP addresses available.
 
-## Usage
-
-```
-tfadm COMMAND [OPTIONS] subnet [{environment}/{region}/{az}/{subnet_name}/{cidr_block}]...
-tfadm COMMAND [OPTIONS] subnet [{domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}]...
-```
-
 ## Properties
-
-- **`tags`**
-
-  A map of tags to assign to the resource.
 
 - **`az`**
 
@@ -37,7 +38,7 @@ tfadm COMMAND [OPTIONS] subnet [{domain}/vpcs/{vpc_name}/{region}/subnets/{subne
 
 - **`SubnetId`**
 
-  The ID of the subnet with which you want to sync.
+  The ID of the subnet you want to sync with.
 
 - **`cidr_block`**
 
@@ -88,10 +89,31 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 ### oninit
 
 - **create**
-  - .subnet/providers
-  - .subnet/versions
-  - .subnet/vpc
+
+  - [.subnet/providers]
+  - [.subnet/versions]
+  - [.subnet/vpc]
+
+## Children
+
+- [.subnet/elastic-ip]
+  - [nat-gateway]
+- [.subnet/providers]
+- [.subnet/tags-all]
+- [.subnet/versions]
+- [.subnet/vpc]
 
 ## See Also
 
 - [Terraform resource: `aws_subnet`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet)
+
+[.aws]: README.md
+[.region]: .region.md
+[.root]: ../../../.tfadm/resources/README.md
+[.subnet/elastic-ip]: .subnet/elastic-ip.md
+[.subnet/providers]: .subnet/providers.md
+[.subnet/tags-all]: .subnet/tags-all.md
+[.subnet/versions]: .subnet/versions.md
+[.subnet/vpc]: .subnet/vpc.md
+[nat-gateway]: nat-gateway.md
+[vpc]: vpc.md

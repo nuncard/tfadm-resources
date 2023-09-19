@@ -1,23 +1,21 @@
-// [.root](../root.md) / [.aws](./aws.md) / [.region](./region.md) / [vpc](./vpc.md) / [subnet](./subnet.md) /
+// [.root] / [.aws] / [.region] / [vpc] / [subnet] / [.subnet/elastic-ip] /
 
 # nat-gateway
 
-Network Address Translation (NAT) service.
+**Extends:** [.tags-all](.tags-all.md)
 
-You can use a NAT gateway so that instances in a private subnet can connect to services outside your VPC but external services cannot initiate a connection with those instances.
-
-## Usage
+## Synopsis
 
 ```
 tfadm COMMAND [OPTIONS] nat-gateway [{environment}/{region}/{az}/{subnet_name}/{nat_gateway_name}]...
 tfadm COMMAND [OPTIONS] nat-gateway [{domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}]...
 ```
 
+## Description
+
+You can use a Network Address Translation (NAT) gateway so that instances in a private subnet can connect to services outside your VPC but external services cannot initiate a connection with those instances.
+
 ## Properties
-
-- **`tags`**
-
-  A map of tags to assign to the resource.
 
 - **`nat_gateway_name`**
 
@@ -27,7 +25,7 @@ tfadm COMMAND [OPTIONS] nat-gateway [{domain}/vpcs/{vpc_name}/{region}/subnets/{
 
 - **`NatGatewayId`**
 
-  The ID of the NAT gateway with which you want to sync.
+  The ID of the NAT gateway you want to sync with.
 
 - **`connectivity_type`**
 
@@ -75,7 +73,7 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 ### onchange
 
 - **update**
-  - .subnet/elastic-ip
+  - [.subnet/elastic-ip]
 
     ```yaml
     when: connectivity_type | default("public") == "public"
@@ -84,7 +82,7 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 ### onimport
 
 - **terraform/import**
-  - .subnet/elastic-ip
+  - [.subnet/elastic-ip]
 
     ```yaml
     when: AllocationId is defined
@@ -95,3 +93,10 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 - [Terraform resource: `aws_nat_gateway`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway)
 
 [^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
+
+[.root]: ../../../.tfadm/resources/README.md
+[.aws]: README.md
+[.region]: region.md
+[vpc]: vpc.md
+[subnet]: subnet.md
+[.subnet/elastic-ip]: .subnet/elastic-ip.md

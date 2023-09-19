@@ -1,25 +1,23 @@
-// [.root](../root.md) / [.aws](./aws.md) / [.region](./region.md) / [vpc](./vpc.md) /
+// [.root] / [.aws] / [.region] / [vpc] /
 
 # internet-gateway
 
-An internet gateway allows communication between your VPC and the internet.
+**Extends:** [.vpc/tags-all]
 
-An internet gateway is a horizontally scaled, redundant, and highly available VPC component. It supports IPv4 and IPv6 traffic. It does not cause availability risks or bandwidth constraints on your network traffic.
-
-An internet gateway enables resources in your public subnets (such as EC2 instances) to connect to the internet if the resource has a public IPv4 address or an IPv6 address. Similarly, resources on the internet can initiate a connection to resources in your subnet using the public IPv4 address or IPv6 address. For example, an internet gateway enables you to connect to an EC2 instance in AWS using your local computer.
-
-## Usage
+## Synopsis
 
 ```
 tfadm COMMAND [OPTIONS] internet-gateway [{environment}/{region}/{internet_gateway_name}]...
 tfadm COMMAND [OPTIONS] internet-gateway [{domain}/vpcs/{vpc_name}/{region}]...
 ```
 
+## Description
+
+An internet gateway is a horizontally scaled, redundant, and highly available VPC component that allows communication between your VPC and the internet. It supports IPv4 and IPv6 traffic. It does not cause availability risks or bandwidth constraints on your network traffic.
+
+An internet gateway enables resources in your public subnets (such as EC2 instances) to connect to the internet if the resource has a public IPv4 address or an IPv6 address. Similarly, resources on the internet can initiate a connection to resources in your subnet using the public IPv4 address or IPv6 address. For example, an internet gateway enables you to connect to an EC2 instance in AWS using your local computer.
+
 ## Properties
-
-- **`tags`**
-
-  A map of tags to assign to the resource.
 
 - **`internet_gateway_name`**
 
@@ -29,7 +27,7 @@ tfadm COMMAND [OPTIONS] internet-gateway [{domain}/vpcs/{vpc_name}/{region}]...
 
 - **`InternetGatewayId`**
 
-  The ID of the internet gateway with which you want to sync.
+  The ID of the internet gateway you want to sync with.
 
 ## Methods
 
@@ -58,3 +56,9 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 - [Terraform resource: `aws_internet_gateway`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway)
 
 [^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
+
+[.aws]: README.md
+[.region]: .region.md
+[.root]: ../../../.tfadm/resources/README.md
+[.vpc/tags-all]: .vpc/tags-all.md
+[vpc]: vpc.md

@@ -1,23 +1,21 @@
-// [.root](../root.md) / [.aws](./aws.md) / [.region](./region.md) /
+// [.root] / [.aws] / [.region] /
 
 # dhcp-options
 
-A set of DHCP options for your VPC.
+**Extends:** [.tags-all]
+
+## Synopsis
+
+```
+tfadm COMMAND [OPTIONS] dhcp-options [{environment}/{region}/{domain_name}]...
+tfadm COMMAND [OPTIONS] dhcp-options [{domain}/dhcp-options/{dhcp_options_name}/{region}]...
+```
+
+## Description
 
 Dynamic Host Configuration Protocol (DHCP) provides a standard for passing configuration information to hosts on a TCP/IP network. You can create as many additional DHCP option sets as you want. However, you can only associate a VPC with one set of DHCP option at a time. After you create a set of DHCP option, you must configure your VPC to use it.
 
-## Usage
-
-```
-tfadm COMMAND [OPTIONS] dhcp_options [{environment}/{region}/{domain_name}]...
-tfadm COMMAND [OPTIONS] dhcp_options [{domain}/dhcp-options/{dhcp_options_name}/{region}]...
-```
-
 ## Properties
-
-- **`tags`**
-
-  A map of tags to assign to the resource.
 
 - **`dhcp_options_name`**
 
@@ -27,7 +25,7 @@ tfadm COMMAND [OPTIONS] dhcp_options [{domain}/dhcp-options/{dhcp_options_name}/
 
 - **`DhcpOptionsId`**
 
-  The ID of the DHCP option set with which you want to sync.
+  The ID of the DHCP option set you want to sync with.
 
 - **`domain_name`**
 
@@ -82,11 +80,24 @@ terraform "-chdir={domain}/dhcp-options/{dhcp_options_name}/{region}" import "-i
 ### oninit
 
 - **create**
-  - .dhcp-options/providers
-  - .dhcp-options/versions
+
+  - [.dhcp-options/providers]
+  - [.dhcp-options/versions]
+
+## Children
+
+- [.dhcp-options/providers]
+- [.dhcp-options/versions]
 
 ## See Also
 
 - [Terraform resource: `aws_vpc_dhcp_options`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options)
 
 [^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
+
+[.aws]: README.md
+[.region]: .region.md
+[.root]: ../../../.tfadm/resources/README.md
+[.tags-all]: .tags-all.md
+[.dhcp-options/providers]: .dhcp-options/providers.md
+[.dhcp-options/versions]: .dhcp-options/versions.md
