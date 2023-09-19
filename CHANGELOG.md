@@ -8,7 +8,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Added CHANGELOG.md
+- Added `CHANGELOG.md`;
+- Documented all remaining undocumented resources.
+
+### Changed
+
+- Moved resource's reference documentation into `.tfadm/resources` directory;
+- `aws/vpc-resources.md` renamed to `aws/vpc.md`;
+- `aws/aws.md` renamed to `aws/.tfadm/resources/README.md`;
+- `root.md` renamed to `.tfadm/resources/README.md`;
+- Improved documentation.
 
 ## [2023.09.17]
 
