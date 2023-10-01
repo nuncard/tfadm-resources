@@ -56,16 +56,15 @@ Having the previous variables set, execute the next instructions to update the c
 ```bash
 yq ".properties.profile.value = $profile" -i .tfadm/resources/.aws.yml && \
 yq ".properties.assume_role_arn.value = $assume_role_arn" -i .tfadm/resources/.providers.yml && \
-yq ".properties.domain.ignore = $filter_domain_ignore" -i .tfadm/resources/.filter/dynamic.yml && \
 yq ".properties.domain.ignore = $filter_domain_ignore" -i .tfadm/resources/.filter/tags.yml && \
 yq ".methods.sync.when.subnet_name = $dmz_subnet_name" -i .tfadm/resources/subnet.yml && \
 yq ".properties.domain.sync = \"Tags/$tags_domain\"" -i .tfadm/resources/.tags-all.yml && \
 yq ".properties.aws.properties.default_tags.properties.domain.use = (\"$tags_domain\" | select(. != \"domain\") // null)" -i .tfadm/resources/.providers.yml && \
-yq ".properties.domain.use = \"dynamic/filter/for_each/$tags_domain\"" -i .tfadm/resources/.filter/dynamic.yml && \
+yq ".properties.domain.use = \"dynamic/filter/for_each/tag:$tags_domain\"" -i .tfadm/resources/.filter/dynamic.yml && \
 yq ".properties.domain.use = \"tags/$tags_domain\"" -i .tfadm/resources/.filter/tags.yml && \
 yq ".properties.environment.sync = \"Tags/$tags_environment\"" -i .tfadm/resources/.tags-all.yml && \
 yq ".properties.aws.properties.default_tags.properties.environment.use = (\"$tags_environment\" | select(. != \"environment\") // null)" -i .tfadm/resources/.providers.yml && \
-yq ".properties.environment.use = \"dynamic/filter/for_each/$tags_environment\"" -i .tfadm/resources/.filter/dynamic.yml && \
+yq ".properties.environment.use = \"dynamic/filter/for_each/tag:$tags_environment\"" -i .tfadm/resources/.filter/dynamic.yml && \
 yq ".properties.environment.use = \"tags/$tags_environment\"" -i .tfadm/resources/.filter/tags.yml && \
 yq ".properties.aws.properties.default_tags.properties.region.use = (\"$tags_region\" | select(. != \"region\") // null)" -i .tfadm/resources/.providers.yml && \
 yq ".properties.availability_zone |= . + {\"sync\": \"Tags/$tags_availability_zone\", \"use\": \"tags/$tags_availability_zone\"}" -i .tfadm/resources/.subnet/tags-all.yml && \

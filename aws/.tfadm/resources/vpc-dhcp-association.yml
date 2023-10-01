@@ -16,15 +16,6 @@ source: dhcp-association.tf.json
 address: data/aws_vpc_dhcp_options/this
 template:
   data:
-    data:
-      aws_vpc_dhcp_options:
-        this:
-          dynamic:
-            filter:
-              for_each: {}
-              content:
-                name: '${format("tag:%s", filter.key)}'
-                values: '${[filter.value]}'
     resource:
       aws_vpc_dhcp_options_association:
         this:
@@ -39,12 +30,9 @@ properties:
     expr: this.format_map(_) if this is string else this
     required: true
     sync: Tags/Name
-    use: dynamic/filter/for_each/Name
+    use: dynamic/filter/for_each/tag:Name
   DhcpOptionsId:
     sync: null
-  tags:
-    description: null
-    ignore: true
 methods:
   sync:
     describe:

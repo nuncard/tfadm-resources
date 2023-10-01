@@ -12,11 +12,11 @@ tfadm COMMAND [OPTIONS] .filter/dynamic
 
 - **`domain`**
 
-  *use:* `dynamic/filter/for_each/Domain`
+  *use: `dynamic/filter/for_each/tag:Domain`*
 
 - **`environment`**
 
-  *use:* `dynamic/filter/for_each/Environment`
+  *use: `dynamic/filter/for_each/tag:Environment`*
 
 ## Direct Sub-resources
 

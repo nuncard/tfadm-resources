@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added resources for managing AWS Route Tables.
 
+### Changed
+
+- Rewritten `.filter/dynamic` resource to be functional.
+
 ### Fixed
 
 - Minor bugs fixed and some refactorings.

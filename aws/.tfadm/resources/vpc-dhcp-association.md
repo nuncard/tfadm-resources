@@ -27,6 +27,8 @@ After you associate the options with the VPC, any existing instances and all new
 
   *default: `{vpc_name}`*
 
+  *use: `dynamic/filter/for_each/tag:Name`*
+
 ## Methods
 
 ### sync.describe()

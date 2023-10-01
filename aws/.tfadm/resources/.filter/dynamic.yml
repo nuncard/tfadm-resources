@@ -1,7 +1,17 @@
 extends: .filter/tags
 properties:
   domain:
-    ignore: null
-    use: dynamic/filter/for_each/Domain
+    use: dynamic/filter/for_each/tag:Domain
   environment:
-    use: dynamic/filter/for_each/Environment
+    use: dynamic/filter/for_each/tag:Environment
+  filter:
+    use: dynamic/filter
+    properties:
+      for_each:
+        value: {}
+      content:
+        properties:
+          name:
+            computed: filter.key
+          values:
+            computed: '[filter.value]'
