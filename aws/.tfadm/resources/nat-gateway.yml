@@ -56,7 +56,8 @@ properties:
   private_ip:
     description: >-
       The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a
-      private IPv4 address will be automatically assigned.
+      private IPv4 address will be automatically assigned. Supports Format String Syntax.
+    expr: this.format_map(_) if this is string else this
     sync: false
   secondary_private_ip_address_count:
     description: >-

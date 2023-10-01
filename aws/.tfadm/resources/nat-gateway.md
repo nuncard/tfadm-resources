@@ -33,7 +33,7 @@ You can use a Network Address Translation (NAT) gateway so that instances in a p
 
 - **`private_ip`**
 
-  The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address will be automatically assigned.
+  The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address will be automatically assigned. Supports [Format String Syntax].
 
 - **`secondary_private_ip_address_count`**
 

@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Added
 
-- Added resources for managing AWS Route Tables.
+- Added resources for managing AWS Route Tables;
+- NAT gateway: `private_ip` now supports [Format String Syntax].
 
 ### Changed
 
@@ -44,3 +45,4 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 [unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.09.19...HEAD
 [2023.09.19]: https://github.com/nuncard/tfadm-resources/compare/2023.09.17...2023.09.19
 [2023.09.17]: https://github.com/nuncard/tfadm-resources/releases/tag/2023.09.17
+[Format String Syntax]: https://docs.python.org/3/library/string.html#format-string-syntax
