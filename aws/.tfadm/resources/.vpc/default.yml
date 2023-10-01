@@ -3,21 +3,20 @@ properties:
   tags:
     inherit: true
   dhcp_options_name:
+    description: DHCP option set name.
     ignore: true
     inherit: true
     value: '{vpc_name}'
   internet_gateway_name:
+    description: The name of the Internet Gateway.
     ignore: true
     inherit: true
     value: '{vpc_name}'
   subnet_name:
+    description: The name of the subnet.
     ignore: true
     inherit: true
-    value: dmz-1
-  nat_gateway_name:
-    ignore: true
-    inherit: true
-    value: '{subnet_name}'
+    value: dmz
 events:
   onchange:
     update:
@@ -42,7 +41,38 @@ events:
       nat-gateway:
         - args:
             az: a
+            nat_gateway_name: nat.a
+            private_ip: '${{cidrhost(aws_subnet.{subnet_id_}.cidr_block, -2)}}'
         - args:
             az: b
+            nat_gateway_name: nat.b
+            private_ip: '${{cidrhost(aws_subnet.{subnet_id_}.cidr_block, -2)}}'
         - args:
             az: c
+            nat_gateway_name: nat.c
+            private_ip: '${{cidrhost(aws_subnet.{subnet_id_}.cidr_block, -2)}}'
+      route-table:
+        - args:
+            route_table_name: main
+        - args:
+            route_table_name: a
+        - args:
+            route_table_name: b
+        - args:
+            route_table_name: c
+      route:
+        - args:
+            destination_cidr_block: 0.0.0.0/0
+            route_table_name: main
+        - args:
+            destination_cidr_block: 0.0.0.0/0
+            nat_gateway_name: nat.a
+            route_table_name: a
+        - args:
+            destination_cidr_block: 0.0.0.0/0
+            nat_gateway_name: nat.b
+            route_table_name: b
+        - args:
+            destination_cidr_block: 0.0.0.0/0
+            nat_gateway_name: nat.c
+            route_table_name: c

@@ -2,6 +2,13 @@
   "resource": {
     "aws_vpc_dhcp_options": {
       "this": {
+        "domain_name": "eu-west-1.dev.example.com",
+        "domain_name_servers": [
+          "AmazonProvidedDNS"
+        ],
+        "ntp_servers": [
+          "169.254.169.123"
+        ],
         "tags": {
           "Name": "dev"
         }

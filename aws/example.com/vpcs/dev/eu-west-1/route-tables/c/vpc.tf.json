@@ -1,0 +1,13 @@
+{
+  "data": {
+    "aws_vpc": {
+      "this": {
+        "tags": {
+          "Domain": "example.com",
+          "Environment": "dev",
+          "Name": "dev"
+        }
+      }
+    }
+  }
+}

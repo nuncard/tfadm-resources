@@ -1,0 +1,19 @@
+{
+  "data": {
+    "aws_internet_gateway": {
+      "this": {
+        "dynamic": {
+          "filter": {
+            "content": {
+              "name": "${filter.key}",
+              "values": "${[filter.value]}"
+            },
+            "for_each": {
+              "attachment.vpc-id": "${data.aws_vpc.this.id}"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "provider": {
+    "aws": {
+      "default_tags": {
+        "tags": {
+          "Domain": "example.com",
+          "Environment": "dev",
+          "ManagedBy": "terraform",
+          "Region": "eu-west-1"
+        }
+      },
+      "region": "eu-west-1"
+    }
+  }
+}

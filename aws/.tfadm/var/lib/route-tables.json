@@ -1,0 +1,16 @@
+{
+  "module": {
+    "rtb-21f87d6e3f5699c187135a702e7f4abe": {
+      "source": "./example.com/vpcs/dev/eu-west-1/route-tables/a"
+    },
+    "rtb-2f39da50e32fb6c71e721f995fcb75d4": {
+      "source": "./example.com/vpcs/dev/eu-west-1/route-tables/c"
+    },
+    "rtb-499a4e5a4bd5bdd70f090e370827fe25": {
+      "source": "./example.com/vpcs/dev/eu-west-1/route-tables/b"
+    },
+    "rtb-a142869be61a14712762bce94d63d6db": {
+      "source": "./example.com/vpcs/dev/eu-west-1/route-tables/main"
+    }
+  }
+}

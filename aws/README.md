@@ -48,7 +48,7 @@ tags_managed_by_value='"terraform"'
 # list in JSON format, e.g, ["dmz-1","dmx-2"]. Just to avoid generating the code
 # for everything by default. You can still convert everything using the --force
 # option of the tfadm sync command.
-dmz_subnet_name='"dmz-*"'
+dmz_subnet_name='"dmz"'
 ```
 
 Having the previous variables set, execute the next instructions to update the configuration.

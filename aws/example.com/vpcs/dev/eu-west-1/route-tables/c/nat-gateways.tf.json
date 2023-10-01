@@ -1,0 +1,12 @@
+{
+  "data": {
+    "aws_nat_gateway": {
+      "nat-be1fbb76becc2b7df7fb1d2f30fc765a": {
+        "tags": {
+          "Name": "nat.c"
+        },
+        "vpc_id": "${data.aws_vpc.this.id}"
+      }
+    }
+  }
+}

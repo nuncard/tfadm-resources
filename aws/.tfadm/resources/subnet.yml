@@ -95,7 +95,7 @@ methods:
       - .tfadm/bin/describe-subnets.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=availability-zone,Values={availability_zone} Name=tag-key,Values=Name Name=ipv6-native,Values=false
       - .tfadm/bin/describe-subnets.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=tag-key,Values=Name Name=ipv6-native,Values=false
     when:
-      subnet_name: dmz-*
+      subnet_name: dmz
   terraform:
     import:
       id: '{SubnetId}'

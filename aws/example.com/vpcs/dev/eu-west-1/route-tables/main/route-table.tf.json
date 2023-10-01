@@ -1,0 +1,12 @@
+{
+  "resource": {
+    "aws_route_table": {
+      "this": {
+        "tags": {
+          "Name": "main"
+        },
+        "vpc_id": "${data.aws_vpc.this.id}"
+      }
+    }
+  }
+}

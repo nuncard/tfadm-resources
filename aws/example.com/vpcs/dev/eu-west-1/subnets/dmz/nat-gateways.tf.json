@@ -1,0 +1,33 @@
+{
+  "resource": {
+    "aws_nat_gateway": {
+      "nat-12949845c23c275ef958ffa5a64369d6": {
+        "allocation_id": "${aws_eip.subnet-decc7512491bc11b5df121505fc9bea1.id}",
+        "private_ip": "${cidrhost(aws_subnet.subnet-decc7512491bc11b5df121505fc9bea1.cidr_block, -2)}",
+        "subnet_id": "${aws_subnet.subnet-decc7512491bc11b5df121505fc9bea1.id}",
+        "tags": {
+          "AvailabilityZone": "eu-west-1b",
+          "Name": "nat.b"
+        }
+      },
+      "nat-62363f1a620b79455dc5c441ddacd3ee": {
+        "allocation_id": "${aws_eip.subnet-8f0c9a2df16cf6847a9959c1b40171dc.id}",
+        "private_ip": "${cidrhost(aws_subnet.subnet-8f0c9a2df16cf6847a9959c1b40171dc.cidr_block, -2)}",
+        "subnet_id": "${aws_subnet.subnet-8f0c9a2df16cf6847a9959c1b40171dc.id}",
+        "tags": {
+          "AvailabilityZone": "eu-west-1a",
+          "Name": "nat.a"
+        }
+      },
+      "nat-cb09846c35270cc0cb3ca3ca025ca662": {
+        "allocation_id": "${aws_eip.subnet-f64685cd35eb27046c95052749d8de41.id}",
+        "private_ip": "${cidrhost(aws_subnet.subnet-f64685cd35eb27046c95052749d8de41.cidr_block, -2)}",
+        "subnet_id": "${aws_subnet.subnet-f64685cd35eb27046c95052749d8de41.id}",
+        "tags": {
+          "AvailabilityZone": "eu-west-1c",
+          "Name": "nat.c"
+        }
+      }
+    }
+  }
+}

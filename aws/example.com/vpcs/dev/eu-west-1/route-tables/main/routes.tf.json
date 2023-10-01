@@ -1,0 +1,11 @@
+{
+  "resource": {
+    "aws_route": {
+      "route-4df64fe27d724a589f4cfff83718a3df": {
+        "destination_cidr_block": "0.0.0.0/0",
+        "gateway_id": "${data.aws_internet_gateway.this.id}",
+        "route_table_id": "${aws_route_table.this.id}"
+      }
+    }
+  }
+}

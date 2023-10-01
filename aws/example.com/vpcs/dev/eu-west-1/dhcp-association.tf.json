@@ -5,13 +5,13 @@
         "dynamic": {
           "filter": {
             "content": {
-              "name": "${format(\"tag:%s\", filter.key)}",
+              "name": "${filter.key}",
               "values": "${[filter.value]}"
             },
             "for_each": {
-              "Domain": "example.com",
-              "Environment": "dev",
-              "Name": "dev"
+              "tag:Domain": "example.com",
+              "tag:Environment": "dev",
+              "tag:Name": "dev"
             }
           }
         }

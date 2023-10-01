@@ -1,0 +1,11 @@
+{
+  "resource": {
+    "aws_route": {
+      "route-8c286d1d51e57aaf0df09a1774ea3cb9": {
+        "destination_cidr_block": "0.0.0.0/0",
+        "nat_gateway_id": "${data.aws_nat_gateway.nat-be1fbb76becc2b7df7fb1d2f30fc765a.id}",
+        "route_table_id": "${aws_route_table.this.id}"
+      }
+    }
+  }
+}
