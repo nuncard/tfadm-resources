@@ -54,7 +54,6 @@ properties:
       public connectivity. Valid Values: private, public.
     sync: ConnectivityType
   private_ip:
-    default: '${{cidrhost(aws_subnet.{subnet_id_}.cidr_block, -2)}}'
     description: >-
       The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a
       private IPv4 address will be automatically assigned.

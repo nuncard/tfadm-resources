@@ -13,7 +13,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 
 - Rewritten `.filter/dynamic` resource to be functional;
-- Changed `nat_gateway_name` default value to `nat.{az}`.
+- Changed `nat_gateway_name` default value to `nat.{az}`;
+- NAT gateway: `private_ip` now has no default value.
 
 ### Fixed
 

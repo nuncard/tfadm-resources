@@ -35,8 +35,6 @@ You can use a Network Address Translation (NAT) gateway so that instances in a p
 
   The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address will be automatically assigned.
 
-  *default: `${{cidrhost(aws_subnet.{subnet_id_}.cidr_block, -2)}}`*
-
 - **`secondary_private_ip_address_count`**
 
   The number of secondary private IPv4 addresses you want to assign to the NAT gateway.
