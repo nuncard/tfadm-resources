@@ -21,7 +21,7 @@ You can use a Network Address Translation (NAT) gateway so that instances in a p
 
   The name of the NAT gateway.
 
-  *default: `{subnet_name}`*
+  *default: `nat.{az}`*
 
 - **`NatGatewayId`**
 
@@ -90,5 +90,6 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 [.region]: region.md
 [.root]: ../../../.tfadm/resources/README.md
 [.subnet/elastic-ip]: .subnet/elastic-ip.md
+[Format String Syntax]: https://docs.python.org/3/library/string.html#format-string-syntax
 [subnet]: subnet.md
 [vpc]: vpc.md

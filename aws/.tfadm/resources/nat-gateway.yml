@@ -27,7 +27,7 @@ properties:
   AllocationId:
     sync: null
   nat_gateway_name:
-    default: '{subnet_name}'
+    default: nat.{az}
     description: The name of the NAT gateway.
     primary_key: true
     sync: Tags/Name
