@@ -23,6 +23,7 @@ properties:
   internet_gateway_name:
     default: '{vpc_name}'
     description: The name of the Internet Gateway.
+    primary_key: true
     sync: Tags/Name
     use: tags/Name
   InternetGatewayId:
