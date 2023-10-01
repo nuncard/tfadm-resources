@@ -1,0 +1,82 @@
+extends: .vpc/tags-all
+parent: route-table
+description: >-
+  A rule that determines where network traffic from your subnet or gateway is directed.
+
+  Routing decisions are based on the most specific match.
+source: routes.tf.json
+address: resource/aws_route/{route_id_}
+properties:
+  route_table_id:
+    ignore: null
+  destination_cidr_block:
+    description: >-
+      The IPv4 CIDR address block used for the destination match.
+    primary_key: true
+    required: false
+    sync: DestinationCidrBlock
+  destination_ipv6_cidr_block:
+    description: >-
+      The IPv6 CIDR block used for the destination match.
+    primary_key: true
+    required: false
+    sync: DestinationIpv6CidrBlock
+  destination:
+    expr: destination_cidr_block | default(destination_ipv6_cidr_block)
+    ignore: true
+    required: true
+    sync: false
+  route_id_:
+    format: route-{}
+    hash: md5
+    ignore: true
+    required: true
+    sync: false
+    value: '{destination}.{route_table_id_}'
+  nat_gateway_name:
+    description: The name of the NAT gateway.
+    expr: this.format_map(_) if this is string else this
+    ignore: true
+    inherit: true
+    sync: NatGatewayName
+  nat_gateway_id_:
+    format: nat-{}
+    hash: md5
+    ignore: true
+    inherit: true
+    required: true
+    sync: false
+    value: '{nat_gateway_name}.{vpc_id_}'
+    when: nat_gateway_name is defined and vpc_id_ is defined
+  nat_gateway_id:
+    computed: '{}'
+    sync: false
+    value: data.aws_nat_gateway.{nat_gateway_id_}.id
+    when: nat_gateway_id_ is defined
+  NatGatewayId:
+    ignore: true
+  internet_gateway_id:
+    computed: '{}'
+    sync: false
+    use: gateway_id
+    value: data.aws_internet_gateway.this.id
+    when: nat_gateway_id is undefined
+  InternetGatewayId:
+    ignore: true
+  tags:
+    description: null
+    ignore: true
+methods:
+  sync:
+    describe:
+      - .tfadm/bin/describe-routes.sh {profile} {region} Name=route-table-id,Values={RouteTableId}
+  terraform:
+    import:
+      id: '{RouteTableId}_{destination}'
+events:
+  oninit:
+    create:
+      .route-table/internet-gateway:
+        when: nat_gateway_name is undefined
+      .route-table/nat-gateway:
+        when: nat_gateway_name is defined

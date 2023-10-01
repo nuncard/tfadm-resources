@@ -96,9 +96,12 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 
 ## Children
 
+- [.internet-gateway]
+- [.nat-gateway]
 - [.vpc/providers]
 - [.vpc/versions]
 - [internet-gateway]
+- [route-table]
 - [subnet]
 - [vpc-cidr-association]
 - [vpc-dhcp-association]
@@ -111,6 +114,8 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 [^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
 
 [.aws]: README.md
+[.internet-gateway]: .internet-gateway.md
+[.nat-gateway]: .nat-gateway.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
 [.tags-all]: .tags-all.md
@@ -118,6 +123,7 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 [.vpc/versions]: .vpc/versions.md
 [dhcp-options]: dhcp-options.md
 [internet-gateway]: internet-gateway.md
+[route-table]: route-table.md
 [subnet]: subnet.md
 [vpc-cidr-association]: vpc-cidr-association.md
 [vpc-dhcp-association]: vpc-dhcp-association.md

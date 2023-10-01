@@ -78,6 +78,14 @@ The `tfadm-resources-aws-vpc` set includes the following resources *(more to com
 
     Associates a set of DHCP options with the specified VPC.
 
+  - [route-table] `{environment}/{region}/{route_table_name}`
+
+    A route table contains a set of rules, called routes.
+
+    - [route] `{environment}/{region}/{route_table_name}`
+  
+      A rule that determines where network traffic from your subnet or gateway is directed.
+
   - [subnet](.tfadm/resources/subnet.md) `{environment}/{region}/{az}/{subnet_name}/{cidr_block}`
 
     A subnet is a range of IP addresses in your VPC.
@@ -120,3 +128,6 @@ The terraform code is generated following the file structure represented below.
 ```
 
 *(**TODO:** Generate also the `terragrunt.hcl.json` files for [terragrunt](https://terragrunt.gruntwork.io/), under the hood).*
+
+[route-table]: .tfadm/resources/route-table.md
+[route]: .tfadm/resources/route.md

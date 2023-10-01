@@ -1,0 +1,22 @@
+extends: .filter/tags
+parent: vpc
+description: >-
+  Provides details about a specific NAT Gateway.
+path: nat_gateway_name
+source: nat-gateway.tf.json
+address: data/aws_nat_gateway/{nat_gateway_id_}
+properties:
+  domain:
+    ignore: true
+  environment:
+    ignore: true
+  vpc_id:
+    ignore: null
+  nat_gateway_name:
+    description: The name of the NAT gateway.
+    primary_key: true
+    use: tags/Name
+  nat_gateway_id_:
+    ignore: true
+    required: true
+    value: this

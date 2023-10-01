@@ -1,0 +1,3 @@
+extends: .nat-gateway
+parent: route-table
+source: nat-gateways.tf.json

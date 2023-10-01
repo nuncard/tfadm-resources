@@ -14,5 +14,7 @@ tfadm COMMAND [OPTIONS] .vpc/tags-all
 
 - [.subnet/tags-all](../.subnet/tags-all.md)
 - [internet-gateway](../internet-gateway.md)
+- [route-table](../route-table.md)
+- [route](../route.md)
 - [subnet](../subnet.md)
 - [vpc-cidr-association](../vpc-cidr-association.md)

@@ -1,7 +1,5 @@
 # .filter/tags
 
-- **Extends:** [.tags-all](../.tags-all.md)
-
 ## Synopsis
 
 ```
@@ -25,4 +23,5 @@ Tags that, together with the name, allow you to uniquely identify a resource.
 ## Direct Sub-resources
 
 - [.filter/dynamic](dynamic.md)
+- [.nat-gateway](../.nat-gateway.md)
 - [.vpc](../.vpc.md)

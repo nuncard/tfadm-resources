@@ -1,0 +1,14 @@
+extends: .filter/dynamic
+parent: vpc
+description: >-
+  Provides details about a specific Internet Gateway.
+source: internet-gateway.tf.json
+address: data/aws_internet_gateway/this
+properties:
+  domain:
+    ignore: true
+  environment:
+    ignore: true
+  vpc_id:
+    ignore: null
+    use: dynamic/filter/for_each/attachment.vpc-id
