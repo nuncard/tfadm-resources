@@ -7,5 +7,9 @@ region=$1
 shift
 [[ $# -eq 0 ]] || filters="--filters $@"
 
-aws ec2 describe-dhcp-options --profile "$profile" --region "$region" $filters --output json --no-paginate \
-| jq '.DhcpOptions | map(.DhcpConfigurations |= (map({(.Key): .Values | map(.Value)}) | add) |.DhcpConfigurations["domain-name"] |= .[0] | .Tags |= (if . == null then . else (map({(.Key): .Value}) | add) end))'
+aws ec2 describe-dhcp-options --profile "$profile" --region "$region" $filters --query 'DhcpOptions' --no-paginate --output json \
+| jq 'map(
+  .DhcpConfigurations |= (map({(.Key): .Values | map(.Value)}) | add) |
+  .DhcpConfigurations["domain-name"] |= .[0] |
+  .Tags |= (. // [] | map({(.Key): .Value}) | add)
+)'

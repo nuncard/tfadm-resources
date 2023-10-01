@@ -31,10 +31,9 @@ properties:
 methods:
   sync:
     describe:
-      - .tfadm/bin/describe-internet-gateways.sh {profile} {region} Name=attachment.vpc-id,Values={VpcId}
-      - .tfadm/bin/describe-internet-gateways.sh {profile} {region} Name=internet-gateway-id,Values={InternetGatewayId}
+      - .tfadm/bin/describe-internet-gateways.sh {profile} {region} Name=attachment.vpc-id,Values={VpcId} Name=tag-key,Values=Name
+      - .tfadm/bin/describe-internet-gateways.sh {profile} {region} Name=internet-gateway-id,Values={InternetGatewayId} Name=tag-key,Values=Name
       - .tfadm/bin/describe-internet-gateways.sh {profile} {region} Name=tag:Name,Values={internet_gateway_name}
-    when: internet_gateway_name | default(None) is not none
   terraform:
     import:
       id: '{InternetGatewayId}'

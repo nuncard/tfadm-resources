@@ -50,16 +50,10 @@ You can use a Network Address Translation (NAT) gateway so that instances in a p
 ### sync.describe()
 
 ```bash
-.tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=nat-gateway-id,Values={NatGatewayId}" || \
-.tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=subnet-id,Values={SubnetId}" || \
+.tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=nat-gateway-id,Values={NatGatewayId}" "Name=tag-key,Values=Name" || \
+.tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=subnet-id,Values={SubnetId}" "Name=tag-key,Values=Name" || \
 .tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=tag:Name,Values={nat_gateway_name}" || \
-.tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}"
-```
-
-### sync.when() [^1]
-
-```
-nat_gateway_name | default(None) is not none
+.tfadm/bin/describe-nat-gateways.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=tag-key,Values=Name"
 ```
 
 ### terraform.import()
@@ -92,11 +86,9 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 
 - [Terraform resource: `aws_nat_gateway`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway)
 
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
-
-[.root]: ../../../.tfadm/resources/README.md
 [.aws]: README.md
 [.region]: region.md
-[vpc]: vpc.md
-[subnet]: subnet.md
+[.root]: ../../../.tfadm/resources/README.md
 [.subnet/elastic-ip]: .subnet/elastic-ip.md
+[subnet]: subnet.md
+[vpc]: vpc.md

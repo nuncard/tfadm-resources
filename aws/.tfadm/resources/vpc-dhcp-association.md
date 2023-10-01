@@ -23,7 +23,7 @@ After you associate the options with the VPC, any existing instances and all new
 
 - **`dhcp_options_name`**
 
-  The name of the DHCP option set to associate with the VPC.
+  The name of the DHCP option set to associate with the VPC. Supports [Format String Syntax].
 
   *default: `{vpc_name}`*
 
@@ -32,14 +32,8 @@ After you associate the options with the VPC, any existing instances and all new
 ### sync.describe()
 
 ```bash
-.tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" || \
+.tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=tag-key,Values=Name" || \
 .tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=tag:Name,Values={dhcp_options_name}"
-```
-
-### sync.when() [^1]
-
-```
-dhcp_options_name | default(None) is not none
 ```
 
 ### terraform.import()
@@ -52,9 +46,8 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 
 - [Terraform resource: `aws_vpc_dhcp_options_association`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options_association)
 
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
-
 [.aws]: README.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
+[Format String Syntax]: https://docs.python.org/3/library/string.html#format-string-syntax
 [vpc]: vpc.md

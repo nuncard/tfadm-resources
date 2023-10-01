@@ -36,7 +36,7 @@ properties:
   dhcp_options_name:
     default: '{vpc_name}'
     description: The name of the DHCP option set to associate with the VPC.
-    expr: vpc_name if this == '{vpc_name}' else this
+    expr: this.format_map(_) if this is string else this
     required: true
     sync: Tags/Name
     use: dynamic/filter/for_each/Name
@@ -48,9 +48,8 @@ properties:
 methods:
   sync:
     describe:
-    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId}
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=tag-key,Values=Name
     - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=tag:Name,Values={dhcp_options_name}
-    when: dhcp_options_name | default(None) is not none
   terraform:
     import:
       address: aws_vpc_dhcp_options_association.this

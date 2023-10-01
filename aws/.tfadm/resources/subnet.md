@@ -65,11 +65,11 @@ When you stop an instance in a subnet, it retains its private IPv4 address. It's
 ### sync.describe()
 
 ```bash
-.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=subnet-id,Values={SubnetId}" "Name=ipv6-native,Values=false" || \
+.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=subnet-id,Values={SubnetId}" "Name=tag-key,Values=Name" "Name=ipv6-native,Values=false" || \
 .tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=tag:Name,Values={subnet_name}" "Name=availability-zone,Values={availability_zone}" "Name=ipv6-native,Values=false" || \
-.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId} Name=tag:Name,Values={subnet_name}" "Name=ipv6-native,Values=false" || \
-.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId} Name=availability-zone,Values={availability_zone}" "Name=ipv6-native,Values=false" || \
-.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=ipv6-native,Values=false"
+.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=tag:Name,Values={subnet_name}" "Name=ipv6-native,Values=false" || \
+.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=availability-zone,Values={availability_zone}" "Name=tag-key,Values=Name" "Name=ipv6-native,Values=false" || \
+.tfadm/bin/describe-subnets.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=tag-key,Values=Name" "Name=ipv6-native,Values=false"
 ```
 
 ### sync.when()
@@ -99,7 +99,6 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 - [.subnet/elastic-ip]
   - [nat-gateway]
 - [.subnet/providers]
-- [.subnet/tags-all]
 - [.subnet/versions]
 - [.subnet/vpc]
 
@@ -112,7 +111,6 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 [.root]: ../../../.tfadm/resources/README.md
 [.subnet/elastic-ip]: .subnet/elastic-ip.md
 [.subnet/providers]: .subnet/providers.md
-[.subnet/tags-all]: .subnet/tags-all.md
 [.subnet/versions]: .subnet/versions.md
 [.subnet/vpc]: .subnet/vpc.md
 [nat-gateway]: nat-gateway.md

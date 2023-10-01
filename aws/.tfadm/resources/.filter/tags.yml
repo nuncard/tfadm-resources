@@ -1,4 +1,3 @@
-extends: .tags-all
 description: >-
   Tags that, together with the name, allow you to uniquely identify a resource.
 properties:
@@ -8,6 +7,3 @@ properties:
   environment:
     ignore: null
     use: tags/Environment
-  tags:
-    description: null
-    ignore: true

@@ -29,12 +29,6 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" impor
 
 - [nat-gateway](../nat-gateway.md)
 
-## See Also
-
-- [Terraform resource: `aws_nat_gateway`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway)
-
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
-
 [.aws]: ../README.md
 [.elastic-ip]: ../.elastic-ip.md
 [.region]: ../.region.md

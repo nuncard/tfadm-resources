@@ -58,23 +58,23 @@ Apart from adding some new tags, you should not be shown any other change.
 
 The `tfadm-resources-aws-vpc` set includes the following resources *(more to come in the future)*:
 
-- [dhcp-options](.tfadm/resources/dhcp-options.md) `{environment}/{region}/{domain_name}`
+- [dhcp-options] `{environment}/{region}/{domain_name}`
 
   A set of DHCP options for your VPC.
 
-- [vpc](.tfadm/resources/vpc.md) `{environment}/{region}/{cidr_block}`
+- [vpc] `{environment}/{region}/{cidr_block}`
 
   A VPC is an isolated portion of the AWS Cloud.
 
-  - [internet-gateway](.tfadm/resources/internet-gateway.md) `{environment}/{region}/{internet_gateway_name}`
+  - [internet-gateway] `{environment}/{region}/{internet_gateway_name}`
 
     An internet gateway allows communication between your VPC and the internet.
 
-  - [vpc-cidr-association](.tfadm/resources/vpc-cidr-association.md) `{environment}/{region}/{cidr_block}`
+  - [vpc-cidr-association] `{environment}/{region}/{cidr_block}`
 
     Associates a secondary IPv4 CIDR block with the specified VPC.
 
-  - [vpc-dhcp-association](.tfadm/resources/vpc-dhcp-association.md) `{environment}/{region}/{dhcp_options_name}`
+  - [vpc-dhcp-association] `{environment}/{region}/{dhcp_options_name}`
 
     Associates a set of DHCP options with the specified VPC.
 
@@ -129,5 +129,12 @@ The terraform code is generated following the file structure represented below.
 
 *(**TODO:** Generate also the `terragrunt.hcl.json` files for [terragrunt](https://terragrunt.gruntwork.io/), under the hood).*
 
+[dhcp-options]: .tfadm/resources/dhcp-options.md
+[internet-gateway]: .tfadm/resources/internet-gateway.md
+[nat-gateway]: .tfadm/resources/nat-gateway.md
 [route-table]: .tfadm/resources/route-table.md
-[route]: .tfadm/resources/route.md
+[route]: .tfadm/resources/roue.md
+[subnet]: .tfadm/resources/subnet.md
+[vpc-cidr-association]: .tfadm/resources/vpc-cidr-association.md
+[vpc-dhcp-association]: .tfadm/resources/vpc-dhcp-association.md
+[vpc]: .tfadm/resources/vpc.md

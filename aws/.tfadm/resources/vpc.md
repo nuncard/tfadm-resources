@@ -57,26 +57,19 @@ tfadm COMMAND [OPTIONS] vpc [{domain}/vpcs/{vpc_name}/{region}]...
 ### sync.describe()
 
 ```bash
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=is-default,Values=false" || \
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=is-default,Values=false" || \
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=cidr-block-association.cidr-block,Values={cidr_block}" "Name=is-default,Values=false" || \
-.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=tag:Name,Values={vpc_name}" "Name=is-default,Values=false"
+.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=tag-key,Values=Name" "Name=is-default,Values=false" || \
+.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=tag-key,Values=Name" "Name=is-default,Values=false" || \
+.tfadm/bin/describe-vpcs.sh "{profile}" "{region}" "Name=cidr-block-association.cidr-block,Values={cidr_block}" "Name=tag-key,Values=Name" "Name=is-default,Values=false"
 ```
 
 ### sync.list()
 
 ```bash
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=cidr-block-association.cidr-block,Values={cidr_block}" "Name=is-default,Values=false" || \
+.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=vpc-id,Values={VpcId}" "Name=tag-key,Values=Name" "Name=is-default,Values=false" || \
+.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=tag-key,Values=Name" "Name=is-default,Values=false" || \
+.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=cidr-block-association.cidr-block,Values={cidr_block}" "Name=tag-key,Values=Name" "Name=is-default,Values=false" || \
 .tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=tag:Name,Values={vpc_name}" "Name=is-default,Values=false" || \
-.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=is-default,Values=false"
-```
-
-### sync.when() [^1]
-
-```
-vpc_name | default(None) is not none
+.tfadm/bin/list-vpcs.sh "{profile}" "{region}" "Name=tag-key,Values=Name" "Name=is-default,Values=false"
 ```
 
 ### terraform.import()
@@ -110,8 +103,6 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 
 - [Amazon VPC Documentation](https://docs.aws.amazon.com/vpc/)
 - [Terraform resource `aws_vpc`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc)
-
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
 
 [.aws]: README.md
 [.internet-gateway]: .internet-gateway.md

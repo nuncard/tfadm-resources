@@ -13,7 +13,8 @@ tfadm COMMAND [OPTIONS] .subnet/tags-all
 ## Properties
 
 - **`availability_zone`**
-    *use:* `tags/AvailabilityZone`
+
+  *use: `tags/AvailabilityZone`*
 
 ## Direct Sub-resources
 

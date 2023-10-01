@@ -64,10 +64,9 @@ properties:
 methods:
   sync:
     describe:
-    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId}
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=tag-key,Values=Name
     - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=tag:Name,Values={dhcp_options_name}
-    - .tfadm/bin/describe-dhcp-options.sh {profile} {region}
-    when: dhcp_options_name | default(None, true) is not none
+    - .tfadm/bin/describe-dhcp-options.sh {profile} {region} Name=tag-key,Values=Name
   terraform:
     import:
       id: '{DhcpOptionsId}'

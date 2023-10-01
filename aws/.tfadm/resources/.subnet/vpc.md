@@ -1,4 +1,4 @@
-// [.root] / [.aws] / [.region] / [subnet] /
+// [.root] / [.aws] / [.region] / [vpc] / [subnet] /
 
 # .subnet/vpc
 
@@ -15,3 +15,4 @@ tfadm COMMAND [OPTIONS] .subnet/vpc [{domain}/vpcs/{vpc_name}/{region}/subnets/{
 [.region]: ../.region.md
 [.root]: ../../../../.tfadm/resources/README.md
 [subnet]: ../subnet.md
+[vpc]: ../vpc.md

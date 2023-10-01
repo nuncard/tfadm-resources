@@ -7,5 +7,5 @@ region=$1
 shift
 [[ $# -eq 0 ]] || filters="--filters $@"
 
-aws ec2 describe-subnets --profile "$profile" --region "$region" $filters --output json --no-paginate \
-| jq '.Subnets | map(if .Tags == null then . else (.Tags |= (map({(.Key): .Value}) | add)) end)'
+aws ec2 describe-subnets --profile "$profile" --region "$region" $filters --query Subnets --no-paginate --output json \
+| jq 'map(.Tags |= (. // [] | map({(.Key): .Value}) | add))'

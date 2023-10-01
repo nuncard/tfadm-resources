@@ -58,15 +58,9 @@ Dynamic Host Configuration Protocol (DHCP) provides a standard for passing confi
 ### sync.describe()
 
 ```bash
-.tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" || \
+.tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=dhcp-options-id,Values={DhcpOptionsId}" "Name=tag-key,Values=Name" || \
 .tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=tag:Name,Values={dhcp_options_name}" || \
-.tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}"
-```
-
-### sync.when() [^1]
-
-```
-dhcp_options_name | default(None, true) is not none
+.tfadm/bin/describe-dhcp-options.sh "{profile}" "{region}" "Name=tag-key,Values=Name"
 ```
 
 ### terraform.import()
@@ -92,8 +86,6 @@ terraform "-chdir={domain}/dhcp-options/{dhcp_options_name}/{region}" import "-i
 ## See Also
 
 - [Terraform resource: `aws_vpc_dhcp_options`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_dhcp_options)
-
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
 
 [.aws]: README.md
 [.region]: .region.md

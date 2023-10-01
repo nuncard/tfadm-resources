@@ -34,15 +34,9 @@ An internet gateway enables resources in your public subnets (such as EC2 instan
 ### sync.describe()
 
 ```bash
-.tfadm/bin/describe-internet-gateways.sh "{profile}" "{region}" "Name=attachment.vpc-id,Values={VpcId}" || \
-.tfadm/bin/describe-internet-gateways.sh "{profile}" "{region}" "Name=internet-gateway-id,Values={InternetGatewayId}" || \
+.tfadm/bin/describe-internet-gateways.sh "{profile}" "{region}" "Name=attachment.vpc-id,Values={VpcId}" "Name=tag-key,Values=Name" || \
+.tfadm/bin/describe-internet-gateways.sh "{profile}" "{region}" "Name=internet-gateway-id,Values={InternetGatewayId}" "Name=tag-key,Values=Name" || \
 .tfadm/bin/describe-internet-gateways.sh "{profile}" "{region}" "Name=tag:Name,Values={internet_gateway_name}"
-```
-
-### sync.when() [^1]
-
-```
-internet_gateway_name | default(None) is not none
 ```
 
 ### terraform.import()
@@ -54,8 +48,6 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 ## See Also
 
 - [Terraform resource: `aws_internet_gateway`](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway)
-
-[^1]: [Jinja expressions](https://jinja.palletsprojects.com/en/3.1.x/templates/#expressions)
 
 [.aws]: README.md
 [.region]: .region.md

@@ -14,11 +14,11 @@ Tags that, together with the name, allow you to uniquely identify a resource.
 
 - **`domain`**
 
-  *use:* `tags/Domain`
+  *use: `tags/Domain`*
 
 - **`environment`**
 
-  *use:* `tags/Environment`
+  *use: `tags/Environment`*
 
 ## Direct Sub-resources
 

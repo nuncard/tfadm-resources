@@ -72,11 +72,10 @@ methods:
   sync:
     parent: vpc
     describe:
-    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=nat-gateway-id,Values={NatGatewayId}
-    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=subnet-id,Values={SubnetId}
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=nat-gateway-id,Values={NatGatewayId} Name=tag-key,Values=Name
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=subnet-id,Values={SubnetId} Name=tag-key,Values=Name
     - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=tag:Name,Values={nat_gateway_name}
-    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=vpc-id,Values={VpcId}
-    when: nat_gateway_name | default(None) is not none
+    - .tfadm/bin/describe-nat-gateways.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=tag-key,Values=Name
   terraform:
     import:
       id: '{NatGatewayId}'

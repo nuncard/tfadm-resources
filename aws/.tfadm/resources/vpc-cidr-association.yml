@@ -34,13 +34,12 @@ properties:
 methods:
   sync:
     describe:
-    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=is-default,Values=false
-    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=cidr-block-association.association-id,Values={AssociationId} Name=is-default,Values=false
-    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=cidr-block-association.cidr-block,Values={cidr_block} Name=is-default,Values=false
-    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=tag-key,Values=Name Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=cidr-block-association.association-id,Values={AssociationId} Name=tag-key,Values=Name Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=cidr-block-association.cidr-block,Values={cidr_block} Name=tag-key,Values=Name Name=is-default,Values=false
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=dhcp-options-id,Values={DhcpOptionsId} Name=tag-key,Values=Name Name=is-default,Values=false
     - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=tag:Name,Values={vpc_name} Name=is-default,Values=false
-    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=is-default,Values=false
-    when: vpc_name | default(None) is not none
+    - .tfadm/bin/describe-cidr-associations.sh {profile} {region} Name=tag-key,Values=Name Name=is-default,Values=false
   terraform:
     import:
       id: '{AssociationId}'

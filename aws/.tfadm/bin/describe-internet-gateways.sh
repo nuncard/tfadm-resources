@@ -7,5 +7,5 @@ region=$1
 shift
 [[ $# -eq 0 ]] || filters="--filters $@"
 
-aws ec2 describe-internet-gateways --profile "$profile" --region "$region" $filters --output json --no-paginate \
-| jq '.InternetGateways | map(if .Tags == null then . else (.Tags |= (map({(.Key): .Value}) | add)) end)'
+aws ec2 describe-internet-gateways --profile "$profile" --region "$region" $filters --query 'InternetGateways' --no-paginate --output json \
+| jq 'map(.Tags |= (. // [] | map({(.Key): .Value}) | add))'
