@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added resources for managing AWS Route Tables;
-- NAT gateway: `private_ip` now supports [Format String Syntax].
+- NAT gateway: `private_ip` now supports [Format String Syntax];
+- Documented the `.vpc/default` resource.
 
 ### Changed
 

@@ -99,6 +99,11 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 - [vpc-cidr-association]
 - [vpc-dhcp-association]
 
+## Direct Sub-resources
+
+- [.vpc/default](.vpc/default.md)
+
+
 ## See Also
 
 - [Amazon VPC Documentation](https://docs.aws.amazon.com/vpc/)

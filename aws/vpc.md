@@ -10,7 +10,7 @@ Switch to the latest version of terraform (or use any other version older than `
 tfswitch -u
 ```
 
-Generate the Terraform code for `dev` VPC.
+Generate the Terraform code for `dev` VPC (see [.vpc/default]).
 
 ```bash
 # It should generate the same content as the example.com directory in this
@@ -129,6 +129,7 @@ The terraform code is generated following the file structure represented below.
 
 *(**TODO:** Generate also the `terragrunt.hcl.json` files for [terragrunt](https://terragrunt.gruntwork.io/), under the hood).*
 
+[.vpc/default]: .tfadm/resources/.vpc/default.md
 [dhcp-options]: .tfadm/resources/dhcp-options.md
 [internet-gateway]: .tfadm/resources/internet-gateway.md
 [nat-gateway]: .tfadm/resources/nat-gateway.md
