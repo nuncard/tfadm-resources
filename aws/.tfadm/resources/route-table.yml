@@ -3,7 +3,7 @@ parent: vpc
 description: >-
   A route table contains a set of rules, called routes.
 path: route_table_name
-source: 'route-tables/{route_table_name}/route-table.tf.json'
+source: route-tables/{route_table_name}/route-table.tf.json
 address: resource/aws_route_table/this
 properties:
   vpc_id:

@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Added CODEOWNERS file.
 
+### Fixed
+
+- Minor bugs fixed and code refactoring.
+
 ## [2023.10.02]
 
 ### Added

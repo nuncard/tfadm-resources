@@ -112,19 +112,29 @@ The terraform code is generated following the file structure represented below.
     └── vpcs
         └── {vpc_name}
             └── {region}
+                ├── cidr-associations.tf.json
                 ├── dhcp-association.tf.json
                 ├── internet-gateway.tf.json
                 ├── providers.tf.json
-                ├── subnets
-                │   └── {subnet_name}
-                │       ├── elastic-ips.tf.json
+                ├── versions.tf.json
+                ├── vpc.tf.json
+                ├── route-tables
+                │   └── {route_table_name}
+                │       ├── internet-gateway.tf.json
                 │       ├── nat-gateways.tf.json
                 │       ├── providers.tf.json
-                │       ├── subnets.tf.json
+                │       ├── route-table.tf.json
+                │       ├── routes.tf.json
                 │       ├── versions.tf.json
                 │       └── vpc.tf.json
-                ├── versions.tf.json
-                └── vpc.tf.json
+                └── subnets
+                    └── {subnet_name}
+                        ├── elastic-ips.tf.json
+                        ├── nat-gateways.tf.json
+                        ├── providers.tf.json
+                        ├── subnets.tf.json
+                        ├── versions.tf.json
+                        └── vpc.tf.json
 ```
 
 *(**TODO:** Generate also the `terragrunt.hcl.json` files for [terragrunt](https://terragrunt.gruntwork.io/), under the hood).*

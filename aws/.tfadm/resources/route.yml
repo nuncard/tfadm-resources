@@ -9,6 +9,8 @@ address: resource/aws_route/{route_id_}
 properties:
   route_table_id:
     ignore: null
+  RouteTableId:
+    sync: null
   destination_cidr_block:
     description: >-
       The IPv4 CIDR address block used for the destination match.
@@ -24,7 +26,6 @@ properties:
   destination:
     expr: destination_cidr_block | default(destination_ipv6_cidr_block)
     ignore: true
-    required: true
     sync: false
   route_id_:
     format: route-{}
@@ -77,6 +78,8 @@ events:
   oninit:
     create:
       .route-table/internet-gateway:
+        internal: false
         when: nat_gateway_name is undefined
       .route-table/nat-gateway:
+        internal: false
         when: nat_gateway_name is defined
