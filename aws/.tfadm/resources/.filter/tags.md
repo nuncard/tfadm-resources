@@ -24,4 +24,5 @@ Tags that, together with the name, allow you to uniquely identify a resource.
 
 - [.filter/dynamic](dynamic.md)
 - [.nat-gateway](../.nat-gateway.md)
+- [.security-group/referenced-group](../.security-group/referenced-group.md)
 - [.vpc](../.vpc.md)

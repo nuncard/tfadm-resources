@@ -1,0 +1,151 @@
+extends: .vpc/tags-all
+parent: security-group
+description: >-
+  Represents an inbound (ingress) or outbound (egress) rule for a security group.
+
+  An inbound rule permits instances to receive traffic from the specified IPv4 or IPv6 CIDR address
+  range, or from the instances that are associated with the specified source security groups.
+
+  An outbound rule permits instances to send traffic to the specified IPv4 or IPv6 CIDR address
+  ranges, or to the instances that are associated with the specified destination security groups.
+
+  You specify a protocol for each rule (for example, TCP). For TCP and UDP, you must also specify
+  the destination port or port range. For the ICMP protocol, you must also specify the ICMP type
+  and code. You can use -1 for the type or code to mean all types or all codes.
+
+  Rule changes are propagated to instances within the security group as quickly as possible.
+  However, a small delay might occur.
+path: type/ip_protocol/from_port/to_port
+source: '{type}-rules.tf.json'
+address: resource/aws_vpc_security_group_{type}_rule/{security_group_rule_id_}
+properties:
+  security_group_id:
+    ignore: null
+  SecurityGroupId:
+    sync: GroupId
+  SecurityGroupName:
+    default: null
+  SecurityGroupRuleId:
+    description: The ID of the security group rule you want to sync with.
+    ignore: true
+  description:
+    default: Managed by Terraform
+    description: The description of the security group rule.
+    sync: Description
+  type:
+    description: >-
+      The type of the security group rule.
+      Valid options are `in`, `inbound`, `ingress`, `out`, `outbound` or `egress`.
+    ignore: true
+    inherit: false
+    sync: IsEgress
+    translate:
+      in: ingress
+      out: egress
+      inbound: ingress
+      outbound: egress
+      false: ingress
+      true: egress
+  ip_protocol:
+    default: all
+    description: >-
+      The IP protocol name (`all`, `icmp`, `icmpv6`, `tcp`, `udp`) or number. Use `all` to specify
+      all protocols. For `tcp`, `udp`, and `icmp`, you must specify a port range. For `icmpv6`, the
+      port range is optional; if you omit the port range, traffic for all types and codes is
+      allowed.
+    inherit: false
+    primary_key: true
+    sync: IpProtocol
+    translate:
+      "-1": -1
+      all: -1
+  from_port:
+    description: >-
+      The start of port range for the TCP and UDP protocols, or an ICMP type number.
+    expr: None if ip_protocol not in [1, 'icmp', 6, 'tcp', 17, 'udp', 58, 'icmpv6'] else this
+    inherit: false
+    primary_key: true
+    required: false
+    sync: FromPort
+    translate:
+      -1: null
+      "-1": null
+      all: null
+  to_port:
+    description: >-
+      The end of port range for the TCP and UDP protocols, or an ICMP code number.
+    expr: None if ip_protocol not in [1, 'icmp', 6, 'tcp', 17, 'udp', 58, 'icmpv6'] else (from_port if this is none and ip_protocol in [6, 'tcp', 17, 'udp'] else this)
+    inherit: false
+    primary_key: true
+    required: false
+    sync: ToPort
+    translate:
+      -1: null
+      "-1": null
+      all: null
+  cidr_ipv4:
+    description: >-
+      The IPv4 CIDR range. To specify a single IPv4 address, use the `/32` prefix length.
+    inherit: false
+    primary_key: true
+    required: false
+    sync: CidrIpv4
+  cidr_ipv6:
+    description: >-
+      The IPv6 CIDR range. To specify a single IPv6 address, use the `/128` prefix length.
+    inherit: false
+    primary_key: true
+    required: false
+    sync: CidrIpv6
+  referenced_security_group_name:
+    description: The name of the source/destination security group.
+    inherit: true
+    ignore: true
+  ReferencedSecurityGroupName:
+    ignore: true
+    inherit: true
+    when: referenced_security_group_name is undefined
+  referenced_security_group_name_:
+    expr: '"{}.{}".format(referenced_security_group_name | default(ReferencedSecurityGroupName), vpc_id_)'
+    format: sg-{}
+    hash: md5
+    ignore: true
+    sync: false
+    when: (referenced_security_group_name | default(ReferencedSecurityGroupName)) is defined and vpc_id_ is defined
+  referenced_security_group_id:
+    computed: '{}'
+    expr: security_group_id if referenced_security_group_name_ is undefined or (security_group_name is defined and (referenced_security_group_name | default(ReferencedSecurityGroupName)) == security_group_name) or (SecurityGroupName is defined and ReferencedSecurityGroupName == SecurityGroupName) else this
+    primary_key: true
+    inherit: true
+    sync: false
+    value: data.aws_security_group.{referenced_security_group_name_}.id
+    when: (cidr_ipv4 | default(cidr_ipv6)) is undefined and vpc_id_ is defined
+  referenced_security_group_id_:
+    expr: referenced_security_group_name_ | default(None)
+    ignore: true
+    inherit: true
+  source_destination:
+    expr: cidr_ipv4 | default(cidr_ipv6) | default(referenced_security_group_id) | default(None)
+    ignore: true
+    sync: false
+  security_group_rule_id_:
+    expr: '"{}:{}:{}:{}:{}".format(type, ip_protocol, from_port | default(-1), to_port | default(-1), source_destination)'
+    format: sgr-{}
+    hash: md5
+    ignore: true
+    sync: false
+    when: source_destination is defined
+methods:
+  sync:
+    describe:
+      - .tfadm/bin/describe-security-group-rules.sh {profile} {region} Name=security-group-rule-id,Values={SecurityGroupRuleId}
+      - .tfadm/bin/describe-security-group-rules.sh {profile} {region} Name=group-id,Values={SecurityGroupId}
+  terraform:
+    import:
+      id: '{SecurityGroupRuleId}'
+events:
+  oncreate:
+    create:
+      .security-group/referenced-group:
+        internal: false
+        when: referenced_security_group_id is defined and referenced_security_group_id != security_group_id

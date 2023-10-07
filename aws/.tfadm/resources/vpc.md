@@ -95,6 +95,7 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 - [.vpc/versions]
 - [internet-gateway]
 - [route-table]
+- [security-group]
 - [subnet]
 - [vpc-cidr-association]
 - [vpc-dhcp-association]
@@ -120,6 +121,7 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_
 [dhcp-options]: dhcp-options.md
 [internet-gateway]: internet-gateway.md
 [route-table]: route-table.md
+[security-group]: security-group.md
 [subnet]: subnet.md
 [vpc-cidr-association]: vpc-cidr-association.md
 [vpc-dhcp-association]: vpc-dhcp-association.md

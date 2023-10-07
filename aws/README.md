@@ -49,6 +49,9 @@ tags_managed_by_value='"terraform"'
 # for everything by default. You can still convert everything using the --force
 # option of the tfadm sync command.
 dmz_subnet_name='"dmz"'
+# The name of the security group you want to convert to terraform code by
+# default.
+default_security_group_name='"default"'
 ```
 
 Having the previous variables set, execute the next instructions to update the configuration.
@@ -57,6 +60,7 @@ Having the previous variables set, execute the next instructions to update the c
 yq ".properties.profile.value = $profile" -i .tfadm/resources/.aws.yml && \
 yq ".properties.assume_role_arn.value = $assume_role_arn" -i .tfadm/resources/.providers.yml && \
 yq ".properties.domain.ignore = $filter_domain_ignore" -i .tfadm/resources/.filter/tags.yml && \
+yq ".methods.sync.when.security_group_name = $default_security_group_name" -i .tfadm/resources/security-group.yml && \
 yq ".methods.sync.when.subnet_name = $dmz_subnet_name" -i .tfadm/resources/subnet.yml && \
 yq ".properties.domain.sync = \"Tags/$tags_domain\"" -i .tfadm/resources/.tags-all.yml && \
 yq ".properties.aws.properties.default_tags.properties.domain.use = (\"$tags_domain\" | select(. != \"domain\") // null)" -i .tfadm/resources/.providers.yml && \

@@ -1,0 +1,76 @@
+extends: .vpc/tags-all
+parent: vpc
+description: >-
+  A security group acts as a virtual firewall for your instances to control inbound and outbound traffic.
+path: security_group_name
+source: security-groups/{security_group_name}/group.tf.json
+address: resource/aws_security_group/this
+properties:
+  vpc_id:
+    expr: '"data.aws_vpc.this.id"'
+    ignore: null
+  VpcId:
+    sync: null
+  security_group_name:
+    description: The name of the Security Group. Cannot start with `sg-`.
+    expr: this.format_map(_) if this is string else this
+    sync:
+      - Tags/Name
+      - GroupName
+    use: tags/Name
+  security_group_id_:
+    format: sg-{}
+    hash: md5
+    ignore: true
+    inherit: true
+    sync: false
+    value: '{security_group_name}.{vpc_id_}'
+    when: security_group_name is defined and vpc_id_ is defined
+  security_group_id:
+    computed: '{}'
+    value: aws_security_group.this.id
+    ignore: true
+    inherit: true
+    sync: false
+  SecurityGroupId:
+    description: The ID of the Security Group you want to sync with.
+    ignore: true
+    inherit: true
+    sync: GroupId
+  SecurityGroupName:
+    default: '{security_group_name}'
+    description: The name of the Security Group you want to sync with.
+    inherit: true
+    sync: GroupName
+    use: name
+  description:
+    description: A description for the security group. This is informational only. Defaults to `Managed by Terraform`. Cannot be `""`.
+    sync: Description
+  revoke_rules_on_delete:
+    description: >-
+      Instruct Terraform to revoke all of the Security Groups attached ingress and egress rules before deleting the rule itself. This is normally not needed, however certain AWS services such as Elastic Map Reduce may automatically add required rules to security groups used with the service, and those rules may contain a cyclic dependency that prevent the security groups from being destroyed without removing the dependency first. Defaults to `false`.
+    # lifecycle:
+    #   properties:
+    #     create_before_destroy:
+    #       value: true
+methods:
+  sync:
+    describe:
+      - .tfadm/bin/describe-security-groups.sh {profile} {region} Name=group-id,Values={SecurityGroupId}
+      - .tfadm/bin/describe-security-groups.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=group-name,Values={SecurityGroupName}
+      - .tfadm/bin/describe-security-groups.sh {profile} {region} Name=vpc-id,Values={VpcId} Name=tag:Name,Values={security_group_name}
+      - .tfadm/bin/describe-security-groups.sh {profile} {region} Name=vpc-id,Values={VpcId}
+    when:
+      security_group_name: default
+  terraform:
+    import:
+      id: '{SecurityGroupId}'
+events:
+  oninit:
+    create:
+      .security-group/providers: {}
+      .security-group/versions: {}
+      .security-group/vpc: {}
+module:
+  file: .tfadm/var/lib/security-groups.json
+  name: '{security_group_id_}'

@@ -28,6 +28,29 @@ events:
             cidr_block: '${cidrsubnet([for parts in [split("/", aws_vpc.this.cidr_block)]: join("/", [parts[0], parts[1] - 2])][0], 2, 1)}'
         - args:
             cidr_block: '${cidrsubnet([for parts in [split("/", aws_vpc.this.cidr_block)]: join("/", [parts[0], parts[1] - 2])][0], 2, 2)}'
+      security-group:
+        - args:
+            security_group_name: default
+        - args:
+            security_group_name: ingress
+      security-group-rule:
+        - args:
+            cidr_ipv4: 0.0.0.0/0
+            ip_protocol: all
+            security_group_name: ingress
+            type: out
+        - args:
+            cidr_ipv4: 0.0.0.0/0
+            from_port: 80
+            ip_protocol: tcp
+            security_group_name: ingress
+            type: in
+        - args:
+            cidr_ipv4: 0.0.0.0/0
+            from_port: 443
+            ip_protocol: tcp
+            security_group_name: ingress
+            type: in
       subnet:
         - args:
             az: a

@@ -86,6 +86,14 @@ The `tfadm-resources-aws-vpc` set includes the following resources *(more to com
   
       A rule that determines where network traffic from your subnet or gateway is directed.
 
+  - [security-group] `{environment}/{region}/{security_group_name}`
+
+    A security group acts as a virtual firewall for your instances to control inbound and outbound traffic.
+
+    - [security-group-rule] `{environment}/{region}/{security_group_name}/{type}/{ip_protocol}/{from_port}/{to_port}`
+
+      Represents an inbound (ingress) or outbound (egress) rule for a security group.
+
   - [subnet](.tfadm/resources/subnet.md) `{environment}/{region}/{az}/{subnet_name}/{cidr_block}`
 
     A subnet is a range of IP addresses in your VPC.
@@ -127,6 +135,15 @@ The terraform code is generated following the file structure represented below.
                 │       ├── routes.tf.json
                 │       ├── versions.tf.json
                 │       └── vpc.tf.json
+                ├── security-groups
+                │   └── {security_group_name}
+                │       ├── egress-rules.tf.json
+                │       ├── group.tf.json
+                │       ├── ingress-rules.tf.json
+                │       ├── providers.tf.json
+                │       ├── referenced-groups.tf.json
+                │       ├── versions.tf.json
+                │       └── vpc.tf.json
                 └── subnets
                     └── {subnet_name}
                         ├── elastic-ips.tf.json
@@ -145,6 +162,8 @@ The terraform code is generated following the file structure represented below.
 [nat-gateway]: .tfadm/resources/nat-gateway.md
 [route-table]: .tfadm/resources/route-table.md
 [route]: .tfadm/resources/roue.md
+[security-group-rule]: .tfadm/resources/security-group-rule.md
+[security-group]: .tfadm/resources/security-group.md
 [subnet]: .tfadm/resources/subnet.md
 [vpc-cidr-association]: .tfadm/resources/vpc-cidr-association.md
 [vpc-dhcp-association]: .tfadm/resources/vpc-dhcp-association.md

@@ -1,0 +1,31 @@
+extends: .filter/tags
+parent: security-group
+description: >-
+  Provides details about a specific security group.
+path: referenced_security_group_name
+source: referenced-groups.tf.json
+address: data/aws_security_group/{referenced_security_group_id_}
+properties:
+  domain:
+    ignore: true
+  environment:
+    ignore: true
+  vpc_id:
+    ignore: null
+  referenced_security_group_name:
+    description: The name of the security group that is referenced in the security group rule.
+    ignore: true
+  ReferencedSecurityGroupName:
+    primary_key: true
+    expr: referenced_security_group_name if referenced_security_group_name == "default" else this
+    use: name
+    when: referenced_security_group_name is undefined or referenced_security_group_name == "default"
+  Name:
+    alias: referenced_security_group_name
+    inherit: false
+    primary_key: true
+    use: tags/Name
+    when: referenced_security_group_name is defined and referenced_security_group_name != "default"
+  referenced_security_group_id_:
+    ignore: true
+    value: this
