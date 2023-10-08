@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Calendar Versioning](https://calver.org/).
 
-## [Unreleased]
+## [2023.10.08]
 
 ### Added
 
@@ -56,7 +56,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - First release.
 
-[unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.10.02...HEAD
+[unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.10.08...HEAD
+[2023.10.08]: https://github.com/nuncard/tfadm-resources/compare/2023.10.02...2023.10.08
 [2023.10.02]: https://github.com/nuncard/tfadm-resources/compare/2023.09.19...2023.10.02
 [2023.09.19]: https://github.com/nuncard/tfadm-resources/compare/2023.09.17...2023.09.19
 [2023.09.17]: https://github.com/nuncard/tfadm-resources/releases/tag/2023.09.17
