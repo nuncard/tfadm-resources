@@ -1,0 +1,22 @@
+{
+  "resource": {
+    "aws_vpc_security_group_ingress_rule": {
+      "sgr-bb27b9abb3f3729c81556097713cb10f": {
+        "cidr_ipv4": "0.0.0.0/0",
+        "description": "Managed by Terraform",
+        "from_port": 443,
+        "ip_protocol": "tcp",
+        "security_group_id": "${aws_security_group.this.id}",
+        "to_port": 443
+      },
+      "sgr-c2a752a4a8578c8cd912f489afba6b95": {
+        "cidr_ipv4": "0.0.0.0/0",
+        "description": "Managed by Terraform",
+        "from_port": 80,
+        "ip_protocol": "tcp",
+        "security_group_id": "${aws_security_group.this.id}",
+        "to_port": 80
+      }
+    }
+  }
+}

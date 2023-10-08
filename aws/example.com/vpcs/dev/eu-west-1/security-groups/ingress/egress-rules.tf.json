@@ -1,0 +1,12 @@
+{
+  "resource": {
+    "aws_vpc_security_group_egress_rule": {
+      "sgr-6e816dedc8273bac3b7cb5f56702547c": {
+        "cidr_ipv4": "0.0.0.0/0",
+        "description": "Managed by Terraform",
+        "ip_protocol": -1,
+        "security_group_id": "${aws_security_group.this.id}"
+      }
+    }
+  }
+}

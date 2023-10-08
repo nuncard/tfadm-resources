@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - Added CODEOWNERS file;
-- Added resources for managing AWS Security Groups.
+- Added resources for managing AWS Security Groups;
+- Generated Terraform code in `example.com/vpcs/dev/eu-west-1/security-groups/` directory.
 
 ### Fixed
 
