@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] security-group [{environment}/{region}/{security_group_name}]...
-tfadm COMMAND [OPTIONS] security-group [{domain}/vpcs/{vpc_name}/{region}/security-groups/{security_group_name}]...
+tfadm COMMAND [OPTIONS] security-group [vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{security_group_name}]...
 ```
 
 ## Description
@@ -53,7 +53,7 @@ A security group acts as a virtual firewall for your instances to control inboun
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/security-groups/{security_group_name}" import "-input=false" "aws_security_group.this" "{SecurityGroupId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{security_group_name}" import "-input=false" "aws_security_group.this" "{SecurityGroupId}"
 ```
 
 ## Events

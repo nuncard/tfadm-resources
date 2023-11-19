@@ -1,10 +1,10 @@
 {
   "module": {
     "sg-32485ace83c114ecd06b04387570e586": {
-      "source": "./example.com/vpcs/dev/eu-west-1/security-groups/ingress"
+      "source": "./vpcs/com.example/dev/eu-west-1/security-groups/ingress"
     },
     "sg-7e6fda367be3a585a5a74628939bd315": {
-      "source": "./example.com/vpcs/dev/eu-west-1/security-groups/default"
+      "source": "./vpcs/com.example/dev/eu-west-1/security-groups/default"
     }
   }
 }

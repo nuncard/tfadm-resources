@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] route-table [{environment}/{region}/{route_table_name}]...
-tfadm COMMAND [OPTIONS] route-table [{domain}/vpcs/{vpc_name}/{region}/route-tables/{route_table_name}]...
+tfadm COMMAND [OPTIONS] route-table [vpcs/{reversed_domain}/{vpc_name}/{region}/route-tables/{route_table_name}]...
 ```
 
 ## Description
@@ -48,7 +48,7 @@ The default is the Internet Gateway attached to the VPC.
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/route-tables/{route_table_name}" import "-input=false" "aws_route.{route_id_}" "{RouteTableId}_{destination}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/route-tables/{route_table_name}" import "-input=false" "aws_route.{route_id_}" "{RouteTableId}_{destination}"
 ```
 
 ## Events

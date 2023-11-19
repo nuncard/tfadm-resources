@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] security-group-rule [{environment}/{region}/{security_group_name}/{type}/{ip_protocol}/{from_port}/{to_port}]...
-tfadm COMMAND [OPTIONS] security-group-rule [{domain}/vpcs/{vpc_name}/{region}/security-groups/{security_group_name}]...
+tfadm COMMAND [OPTIONS] security-group-rule [vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{security_group_name}]...
 ```
 
 ## Description
@@ -83,7 +83,7 @@ The default is the security group itself.
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/security-groups/{security_group_name}" import "-input=false" "aws_vpc_security_group_{type}_rule.{security_group_rule_id_}" "{SecurityGroupRuleId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{security_group_name}" import "-input=false" "aws_vpc_security_group_{type}_rule.{security_group_rule_id_}" "{SecurityGroupRuleId}"
 ```
 
 ## Events

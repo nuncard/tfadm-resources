@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - Removed custom `source` from `root` resource;
 - `aws/example.com/dhcp-options` renamed to `aws/dhcp-options/com.example`;
+- `aws/example.com/vpcs` renamed to `aws/vpcs/com.example`;
 
 ## [2023.10.08]
 

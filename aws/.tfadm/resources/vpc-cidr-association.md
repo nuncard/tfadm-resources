@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] vpc-cidr-association [{environment}/{region}/{cidr_block}]...
-tfadm COMMAND [OPTIONS] vpc-cidr-association [{domain}/vpcs/{vpc_name}/{region}]...
+tfadm COMMAND [OPTIONS] vpc-cidr-association [vpcs/{reversed_domain}/{vpc_name}/{region}]...
 ```
 
 ## Description
@@ -41,7 +41,7 @@ Associates a secondary IPv4 CIDR block with the specified VPC.
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_vpc_ipv4_cidr_block_association.{association_id_}" "{AssociationId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}" import "-input=false" "aws_vpc_ipv4_cidr_block_association.{association_id_}" "{AssociationId}"
 ```
 
 ## See Also

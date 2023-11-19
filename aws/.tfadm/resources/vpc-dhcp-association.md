@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] vpc-dhcp-association [{environment}/{region}/{dhcp_options_name}]...
-tfadm COMMAND [OPTIONS] vpc-dhcp-association [{domain}/vpcs/{vpc_name}/{region}]...
+tfadm COMMAND [OPTIONS] vpc-dhcp-association [vpcs/{reversed_domain}/{vpc_name}/{region}]...
 ```
 
 ## Description
@@ -41,7 +41,7 @@ After you associate the options with the VPC, any existing instances and all new
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_vpc_dhcp_options_association.this" "{VpcId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}" import "-input=false" "aws_vpc_dhcp_options_association.this" "{VpcId}"
 ```
 
 ## See Also
