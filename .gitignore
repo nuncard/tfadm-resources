@@ -1,6 +1,7 @@
 .vscode
 /aws/dhcp-options/*
 !/aws/dhcp-options/com.example/
+/aws/vpcs/*
 !/aws/vpcs/com.example/
 *.ignore
 *.ignore.*
