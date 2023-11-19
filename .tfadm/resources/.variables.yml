@@ -2,3 +2,6 @@ parent: .root
 description: Input Variables.
 source: variables.tf.json
 address: variable
+properties:
+  reversed_domain:
+    ignore: true

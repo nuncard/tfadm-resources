@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Calendar Versioning](https://calver.org/).
 
+### [unreleased]
+
+### Added
+
+- `reversed_domain` property added to `root` resource;
+
 ## [2023.10.08]
 
 ### Added

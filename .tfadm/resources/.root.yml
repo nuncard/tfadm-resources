@@ -9,3 +9,6 @@ properties:
     inherit: true
     translate: null
     value: 'example.com'
+  reversed_domain:
+    inherit: true
+    expr: '(domain.split(".") | reverse | join(".")) if domain is string else this'
