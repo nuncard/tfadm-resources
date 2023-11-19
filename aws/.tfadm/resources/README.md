@@ -18,6 +18,9 @@ tfadm COMMAND [OPTIONS] .aws [{environment}]...
 
   Use a specific profile from your credential file.
 
+- **`assume_role_arn`**
+  Amazon Resource Name (ARN) of the IAM Role to assume.
+
 - **`region`**
 
   The name of the AWS region.

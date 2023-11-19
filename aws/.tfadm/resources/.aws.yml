@@ -6,6 +6,11 @@ properties:
     ignore: true
     inherit: true
     value: default
+  assume_role_arn:
+    description: Amazon Resource Name (ARN) of the IAM Role to assume.
+    ignore: true
+    inherit: true
+    value: null
   region:
     description: The name of the AWS region.
     ignore: true

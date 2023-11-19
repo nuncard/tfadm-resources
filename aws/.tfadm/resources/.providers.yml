@@ -7,10 +7,6 @@ description: >-
 source: providers.tf.json
 address: provider
 properties:
-  assume_role_arn:
-    value: null
-    description: Amazon Resource Name (ARN) of the IAM Role to assume.
-    ignore: true
   aws:
     properties:
       assume_role:

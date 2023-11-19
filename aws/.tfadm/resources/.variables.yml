@@ -3,5 +3,5 @@ parent: .aws
 properties:
   profile:
     ignore: true
-  role_arn:
+  assume_role_arn:
     nullable: true
