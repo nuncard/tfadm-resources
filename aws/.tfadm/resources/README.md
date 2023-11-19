@@ -6,7 +6,6 @@
 
 ```
 tfadm COMMAND [OPTIONS] .aws [{environment}]...
-tfadm COMMAND [OPTIONS] .aws [{domain}]...
 ```
 
 ## Description

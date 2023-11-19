@@ -4,7 +4,6 @@
 
 ```
 tfadm COMMAND [OPTIONS] .root [{environment}]...
-tfadm COMMAND [OPTIONS] .root [{domain}]...
 ```
 
 ## Description
