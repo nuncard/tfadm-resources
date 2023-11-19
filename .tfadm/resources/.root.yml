@@ -1,6 +1,5 @@
 description: Root configuration, shared across all resources.
 path: environment
-source: '{domain}/locals.tf.json'
 properties:
   environment:
     description: Environment name.

@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - `reversed_domain` property added to `root` resource;
 
+### Changed
+
+- Removed custom `source` from `root` resource;
+
 ## [2023.10.08]
 
 ### Added
