@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 
 - `reversed_domain` property added to `root` resource;
+- Documented `.variables` resource;
 
 ### Changed
 

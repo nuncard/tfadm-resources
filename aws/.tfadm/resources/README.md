@@ -29,11 +29,13 @@ tfadm COMMAND [OPTIONS] .aws [{environment}]...
 
 - [.providers]
 - [.region]
+- [.variables]
 - [.versions]
 
 [.providers]: .providers.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
+[.variables]: .variables.md
 [.versions]: .versions.md
 
 ## See Also
