@@ -1,0 +1,22 @@
+extends: .providers
+properties:
+  aws:
+    properties:
+      assume_role:
+        use: dynamic/assume_role
+        properties:
+          for_each:
+            computed: 'var.assume_role_arn == null ? [] : [var.assume_role_arn]'
+          role_arn:
+            use: content/role_arn
+            computed: assume_role.value
+      default_tags:
+        properties:
+          domain:
+            computed: var.domain
+          environment:
+            computed: var.environment
+          region:
+            computed: var.region
+      region:
+        computed: var.region
