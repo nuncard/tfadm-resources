@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - `aws/example.com/dhcp-options` renamed to `aws/dhcp-options/com.example`;
 - `aws/example.com/vpcs` renamed to `aws/vpcs/com.example`;
 - `assume_role_arn` property moved from `aws/.providers.yml` to `aws/.aws.yml`;
+- AWS provider version requirement updated to `~> 5.0`;
 
 ## [2023.10.08]
 
