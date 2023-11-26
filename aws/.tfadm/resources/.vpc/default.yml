@@ -45,22 +45,30 @@ events:
             security_group_name: ingress
       security-group-rule:
         - args:
+            ip_protocol: icmp
+            security_group_name: default
+            type: in
+          unset: tags
+        - args:
             cidr_ipv4: 0.0.0.0/0
             ip_protocol: all
             security_group_name: ingress
             type: out
+          unset: tags
         - args:
             cidr_ipv4: 0.0.0.0/0
             from_port: 80
             ip_protocol: tcp
             security_group_name: ingress
             type: in
+          unset: tags
         - args:
             cidr_ipv4: 0.0.0.0/0
             from_port: 443
             ip_protocol: tcp
             security_group_name: ingress
             type: in
+          unset: tags
       subnet:
         - args:
             az: a

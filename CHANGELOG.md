@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - `assume_role_arn` property moved from `aws/.providers.yml` to `aws/.aws.yml`;
 - AWS provider version requirement updated to `~> 5.0`;
 
+### Fixed
+
+- Minor bugs fixed and code refactoring.
+
 ## [2023.10.08]
 
 ### Added

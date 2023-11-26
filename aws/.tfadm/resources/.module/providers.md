@@ -2,12 +2,12 @@
 
 # .module/providers
 
-- **Extends:** [.module/providers](../.providers.md)
+- **Extends:** [.providers](../.providers.md)
 
 ## Synopsis
 
 ```
-tfadm COMMAND [OPTIONS] .providers [{environment}]...
+tfadm COMMAND [OPTIONS] .module/providers [{environment}]...
 ```
 
 ## Direct Sub-resources

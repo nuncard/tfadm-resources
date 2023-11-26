@@ -58,7 +58,7 @@ Having the previous variables set, execute the next instructions to update the c
 
 ```bash
 yq ".properties.profile.value = $profile" -i .tfadm/resources/.aws.yml && \
-yq ".properties.assume_role_arn.value = $assume_role_arn" -i .tfadm/resources/.aws.yml && \
+yq ".properties.assume_role_arn.value = $assume_role_arn" -i .tfadm/resources/.providers.yml && \
 yq ".properties.domain.ignore = $filter_domain_ignore" -i .tfadm/resources/.filter/tags.yml && \
 yq ".methods.sync.when.security_group_name = $default_security_group_name" -i .tfadm/resources/security-group.yml && \
 yq ".methods.sync.when.subnet_name = $dmz_subnet_name" -i .tfadm/resources/subnet.yml && \
