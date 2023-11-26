@@ -9,7 +9,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] vpc [{environment}/{region}/{cidr_block}]...
-tfadm COMMAND [OPTIONS] vpc [{domain}/vpcs/{vpc_name}/{region}]...
+tfadm COMMAND [OPTIONS] vpc [vpcs/{reversed_domain}/{vpc_name}/{region}]...
 ```
 
 ## Description
@@ -75,7 +75,7 @@ tfadm COMMAND [OPTIONS] vpc [{domain}/vpcs/{vpc_name}/{region}]...
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_vpc.this" "{VpcId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}" import "-input=false" "aws_vpc.this" "{VpcId}"
 ```
 
 ## Events

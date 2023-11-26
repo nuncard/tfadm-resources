@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] route-table [{environment}/{region}/{route_table_name}]...
-tfadm COMMAND [OPTIONS] route-table [{domain}/vpcs/{vpc_name}/{region}/route-tables/{route_table_name}]...
+tfadm COMMAND [OPTIONS] route-table [vpcs/{reversed_domain}/{vpc_name}/{region}/route-tables/{route_table_name}]...
 ```
 
 ## Description
@@ -46,7 +46,7 @@ route_table_name | default(None) is not none
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/route-tables/{route_table_name}" import "-input=false" "aws_route_table.this" "{RouteTableId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/route-tables/{route_table_name}" import "-input=false" "aws_route_table.this" "{RouteTableId}"
 ```
 
 ## Events

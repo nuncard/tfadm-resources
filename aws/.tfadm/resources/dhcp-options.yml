@@ -8,7 +8,7 @@ description: >-
   you want. However, you can only associate a VPC with one set of DHCP option at a time. After you
   create a set of DHCP option, you must configure your VPC to use it.
 path: domain_name
-source: dhcp-options/{dhcp_options_name}/{region}/dhcp-options.tf.json
+source: dhcp-options/{reversed_domain}/{dhcp_options_name}/{region}/dhcp-options.tf.json
 address: resource/aws_vpc_dhcp_options/this
 properties:
   dhcp_options_name:

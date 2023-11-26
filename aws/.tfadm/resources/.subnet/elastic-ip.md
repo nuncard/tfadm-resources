@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] .subnet/elastic-ip [{environment}/{region}/{az}/{subnet_name}]...
-tfadm COMMAND [OPTIONS] .subnet/elastic-ip [{domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}]...
+tfadm COMMAND [OPTIONS] .subnet/elastic-ip [vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}]...
 ```
 
 ## Properties
@@ -22,7 +22,7 @@ tfadm COMMAND [OPTIONS] .subnet/elastic-ip [{domain}/vpcs/{vpc_name}/{region}/su
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" import "-input=false" "aws_eip.{allocation_id_}" "{AllocationId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}" import "-input=false" "aws_eip.{allocation_id_}" "{AllocationId}"
 ```
 
 ## Children

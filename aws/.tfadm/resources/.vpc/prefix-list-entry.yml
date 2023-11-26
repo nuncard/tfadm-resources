@@ -1,0 +1,8 @@
+extends: prefix-list-entry
+properties:
+  cidr_block:
+    expr: this.split("/") if this is string else this
+    ignore: true
+  cidr:
+    alias: cidr_block
+    expr: '"{}/{}".format(this[0], (this[1] | int) - 2) if this is sequence else this'

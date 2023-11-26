@@ -18,7 +18,7 @@ describe() {
       echo "$rule"
     else
       obj=''
-  
+
       for obj in ${cache[@]}; do
         obj=$(fgrep "\"$obj_id\"" <<< "$obj") && break
       done
@@ -44,6 +44,6 @@ describe() {
 }
 
 aws ec2 describe-security-group-rules --profile "$profile" --region "$region" $filters --query 'SecurityGroupRules' --no-paginate --output json \
-| jq -c '.[] | select(.PrefixListId == null) | .Tags |= (. // [] | map({(.Key): .Value}) | add)' \
+| jq -c '.[] | .Tags |= (. // [] | map({(.Key): .Value}) | add)' \
 | describe \
 | jq -s

@@ -97,6 +97,31 @@ properties:
     primary_key: true
     required: false
     sync: CidrIpv6
+  prefix_list_name:
+    description: >-
+      The name of the source/destination prefix list.
+    expr: this.format_map(_) if this is string else this
+    ignore: true
+    inherit: true
+    sync: PrefixListName
+  prefix_list_name_:
+    format: pl-{}
+    hash: md5
+    ignore: true
+    sync: false
+    value: '{prefix_list_name}.{region}'
+  prefix_list_id:
+    computed: '{}'
+    inherit: false
+    primary_key: true
+    sync: false
+    value: data.aws_ec2_managed_prefix_list.{prefix_list_name_}.id
+    when: prefix_list_name_ is defined
+  prefix_list_id_:
+    expr: prefix_list_name_ | default(None)
+    ignore: true
+    inherit: true
+    sync: false
   referenced_security_group_name:
     description: The name of the source/destination security group.
     inherit: true
@@ -119,13 +144,14 @@ properties:
     inherit: true
     sync: false
     value: data.aws_security_group.{referenced_security_group_name_}.id
-    when: (cidr_ipv4 | default(cidr_ipv6)) is undefined and vpc_id_ is defined
+    when: (cidr_ipv4 | default(cidr_ipv6) | default(prefix_list_name_)) is undefined and vpc_id_ is defined
   referenced_security_group_id_:
     expr: referenced_security_group_name_ | default(None)
     ignore: true
     inherit: true
+    sync: false
   source_destination:
-    expr: cidr_ipv4 | default(cidr_ipv6) | default(referenced_security_group_id) | default(None)
+    expr: cidr_ipv4 | default(cidr_ipv6) | default(prefix_list_name_) | default(referenced_security_group_id) | default(None)
     ignore: true
     sync: false
   security_group_rule_id_:
@@ -145,7 +171,10 @@ methods:
       id: '{SecurityGroupRuleId}'
 events:
   oncreate:
-    create:
+    update:
       .security-group/referenced-group:
         internal: false
         when: referenced_security_group_id is defined and referenced_security_group_id != security_group_id
+      .security-group/prefix-list:
+        internal: false
+        when: prefix_list_name is defined

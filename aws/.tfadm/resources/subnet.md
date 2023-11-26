@@ -9,7 +9,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] subnet [{environment}/{region}/{az}/{subnet_name}/{cidr_block}]...
-tfadm COMMAND [OPTIONS] subnet [{domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}]...
+tfadm COMMAND [OPTIONS] subnet [vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}]...
 ```
 
 ## Description
@@ -81,7 +81,7 @@ subnet_name: dmz-*
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" import "-input=false" "aws_subnet.{subnet_id_}" "{SubnetId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}" import "-input=false" "aws_subnet.{subnet_id_}" "{SubnetId}"
 ```
 
 ## Events

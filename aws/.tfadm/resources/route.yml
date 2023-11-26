@@ -75,8 +75,8 @@ methods:
     import:
       id: '{RouteTableId}_{destination}'
 events:
-  oninit:
-    create:
+  onchange:
+    update:
       .route-table/internet-gateway:
         internal: false
         when: nat_gateway_name is undefined

@@ -1,0 +1,23 @@
+{
+  "provider": {
+    "aws": {
+      "default_tags": {
+        "tags": {
+          "Domain": "example.com",
+          "Environment": "dev",
+          "ManagedBy": "terraform",
+          "Region": "eu-west-1"
+        }
+      },
+      "dynamic": {
+        "assume_role": {
+          "content": {
+            "role_arn": "${assume_role.value}"
+          },
+          "for_each": "${var.assume_role_arn == null ? [] : [var.assume_role_arn]}"
+        }
+      },
+      "region": "${var.region}"
+    }
+  }
+}

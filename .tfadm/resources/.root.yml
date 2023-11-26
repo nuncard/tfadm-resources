@@ -1,6 +1,5 @@
 description: Root configuration, shared across all resources.
 path: environment
-source: '{domain}/locals.tf.json'
 properties:
   environment:
     description: Environment name.
@@ -9,3 +8,6 @@ properties:
     inherit: true
     translate: null
     value: 'example.com'
+  reversed_domain:
+    inherit: true
+    expr: '(domain.split(".") | reverse | join(".")) if domain is string else this'

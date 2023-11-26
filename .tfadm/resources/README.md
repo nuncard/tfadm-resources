@@ -4,7 +4,6 @@
 
 ```
 tfadm COMMAND [OPTIONS] .root [{environment}]...
-tfadm COMMAND [OPTIONS] .root [{domain}]...
 ```
 
 ## Description
@@ -24,7 +23,9 @@ Root configuration, shared across all resources.
 ## Children
 
 - [.aws]
+- [.variables]
 - [.versions]
 
 [.aws]: ../../aws/.tfadm/resources/README.md
 [.versions]: .versions.md
+[.variables]: .variables.md

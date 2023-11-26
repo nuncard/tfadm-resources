@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] nat-gateway [{environment}/{region}/{az}/{subnet_name}/{nat_gateway_name}]...
-tfadm COMMAND [OPTIONS] nat-gateway [{domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}]...
+tfadm COMMAND [OPTIONS] nat-gateway [vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}]...
 ```
 
 ## Description
@@ -57,7 +57,7 @@ You can use a Network Address Translation (NAT) gateway so that instances in a p
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/subnets/{subnet_name}" import "-input=false" "aws_nat_gateway.{nat_gateway_id_}" "{NatGatewayId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}" import "-input=false" "aws_nat_gateway.{nat_gateway_id_}" "{NatGatewayId}"
 ```
 
 ## Events

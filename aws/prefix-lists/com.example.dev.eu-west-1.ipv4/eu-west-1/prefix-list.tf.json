@@ -1,0 +1,31 @@
+{
+  "locals": {
+    "entries": [
+      {
+        "cidr": "10.0.0.0/14"
+      }
+    ],
+    "max_entries": "${length(local.entries)}"
+  },
+  "resource": {
+    "aws_ec2_managed_prefix_list": {
+      "this": {
+        "address_family": "IPv4",
+        "dynamic": {
+          "entry": {
+            "content": {
+              "cidr": "${entry.key}",
+              "description": "${lookup(entry.value, \"description\", null)}"
+            },
+            "for_each": "${{for entry in local.entries: entry.cidr => entry}}"
+          }
+        },
+        "max_entries": "${local.max_entries > 0 ? local.max_entries : 1}",
+        "name": "com.example.dev.eu-west-1.ipv4",
+        "tags": {
+          "Name": "eu-west-1.dev"
+        }
+      }
+    }
+  }
+}

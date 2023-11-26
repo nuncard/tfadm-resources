@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] dhcp-options [{environment}/{region}/{domain_name}]...
-tfadm COMMAND [OPTIONS] dhcp-options [{domain}/dhcp-options/{dhcp_options_name}/{region}]...
+tfadm COMMAND [OPTIONS] dhcp-options [dhcp-options/{reversed_domain}/{dhcp_options_name}/{region}]...
 ```
 
 ## Description
@@ -66,7 +66,7 @@ Dynamic Host Configuration Protocol (DHCP) provides a standard for passing confi
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/dhcp-options/{dhcp_options_name}/{region}" import "-input=false" "aws_vpc_dhcp_options.this" "{DhcpOptionsId}"
+terraform "-chdir=dhcp-options/{reversed_domain}/{dhcp_options_name}/{region}" import "-input=false" "aws_vpc_dhcp_options.this" "{DhcpOptionsId}"
 ```
 
 ## Events

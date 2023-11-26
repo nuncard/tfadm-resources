@@ -1,0 +1,23 @@
+parent: prefix-list
+description: >-
+  An entry for a prefix list.
+path: cidr_block
+source: prefix-list.tf.json
+address: locals/entries
+template:
+  data:
+    locals:
+      entries: []
+properties:
+  cidr_block:
+    description: The CIDR block.
+    primary_key: true
+    sync: Cidr
+    use: cidr
+  description:
+    description: A description for the entry.
+    sync: Description
+methods:
+  sync:
+    describe:
+      - aws ec2 get-managed-prefix-list-entries --profile {profile} --region {region} --prefix-list-id {PrefixListId} --query Entries --no-paginate --output json

@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [2023.11.26]
+
+### Added
+
+- `reversed_domain` property added to `root` resource;
+- Documented `.variables` resource;
+- Added `aws/.module/providers.yml` file;
+- Added resources for AWS-managed prefix lists;
+- Generated `aws/prefix-lists/com.example.dev.eu-west-1.ipv4/` Terraform code;
+
+### Changed
+
+- Removed custom `source` from `root` resource;
+- `aws/example.com/dhcp-options` renamed to `aws/dhcp-options/com.example`;
+- `aws/example.com/vpcs` renamed to `aws/vpcs/com.example`;
+- `assume_role_arn` property moved from `aws/.providers.yml` to `aws/.aws.yml`;
+- AWS provider version requirement updated to `~> 5.0`;
+
+### Fixed
+
+- Minor bugs fixed and code refactoring.
+
 ## [2023.10.08]
 
 ### Added
@@ -56,7 +78,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - First release.
 
-[unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.10.08...HEAD
+[unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.11.26...HEAD
+[2023.11.26]: https://github.com/nuncard/tfadm-resources/compare/2023.10.08...2023.11.26
 [2023.10.08]: https://github.com/nuncard/tfadm-resources/compare/2023.10.02...2023.10.08
 [2023.10.02]: https://github.com/nuncard/tfadm-resources/compare/2023.09.19...2023.10.02
 [2023.09.19]: https://github.com/nuncard/tfadm-resources/compare/2023.09.17...2023.09.19

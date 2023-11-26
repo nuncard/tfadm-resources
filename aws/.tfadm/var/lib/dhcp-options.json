@@ -1,7 +1,7 @@
 {
   "module": {
     "dopt-d3a710c04cf6f19e72101295f40ea03e": {
-      "source": "./example.com/dhcp-options/dev/eu-west-1"
+      "source": "./dhcp-options/com.example/dev/eu-west-1"
     }
   }
 }

@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] security-group-rule [{environment}/{region}/{security_group_name}/{type}/{ip_protocol}/{from_port}/{to_port}]...
-tfadm COMMAND [OPTIONS] security-group-rule [{domain}/vpcs/{vpc_name}/{region}/security-groups/{security_group_name}]...
+tfadm COMMAND [OPTIONS] security-group-rule [vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{security_group_name}]...
 ```
 
 ## Description
@@ -65,6 +65,10 @@ One of the following source/destination arguments can be supplied:
 
   The IPv6 CIDR range. To specify a single IPv6 address, use the `/128` prefix length.
 
+- **`prefix_list_name`**
+
+  The name of the source/destination prefix list. Supports [Format String Syntax].
+
 - **`referenced_security_group_name`**
 
   The name of the source/destination security group.
@@ -83,19 +87,25 @@ The default is the security group itself.
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/security-groups/{security_group_name}" import "-input=false" "aws_vpc_security_group_{type}_rule.{security_group_rule_id_}" "{SecurityGroupRuleId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{security_group_name}" import "-input=false" "aws_vpc_security_group_{type}_rule.{security_group_rule_id_}" "{SecurityGroupRuleId}"
 ```
 
 ## Events
 
 ### oncreate
 
-- **create**
+- **update**
 
   - [.security-group/referenced-group]
 
     ```yaml
     when: referenced_security_group_id is defined and referenced_security_group_id != security_group_id
+    ```
+
+  - [.security-group/prefix-list]:
+
+    ```yaml
+    when: prefix_list_name is defined
     ```
 
 ## See Also
@@ -107,6 +117,8 @@ terraform "-chdir={domain}/vpcs/{vpc_name}/{region}/security-groups/{security_gr
 [.aws]: README.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
+[.security-group/prefix-list]: .security-group/prefix-list.md
 [.security-group/referenced-group]: .security-group/referenced-group.md
+[Format String Syntax]: https://docs.python.org/3/library/string.html#format-string-syntax
 [security-group]: security-group.md
 [vpc]: vpc.md

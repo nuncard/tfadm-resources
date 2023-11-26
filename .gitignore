@@ -1,7 +1,10 @@
 .vscode
-/aws/*
-!/aws/.tfadm/
-!/aws/*.md
-!/aws/example.com/
+/aws/dhcp-options/*
+!/aws/dhcp-options/com.example/dev/
+/aws/prefix-lists/*
+!/aws/prefix-lists/com.example.dev.*
+/aws/vpcs/*
+!/aws/vpcs/com.example/dev/
 *.ignore
 *.ignore.*
+tfadm

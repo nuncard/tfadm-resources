@@ -1,0 +1,15 @@
+extends: .variables
+parent: prefix-list
+properties:
+  environment:
+    ignore: true
+  domain:
+    ignore: true
+  hostname:
+    ignore: true
+  address_family:
+    ignore: true
+  prefix_list_name:
+    ignore: true
+  PrefixListId:
+    ignore: true

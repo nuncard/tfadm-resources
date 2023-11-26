@@ -1,10 +1,10 @@
 depends_on: dhcp-options
 extends: .tags-all
 parent: .region
-address: resource/aws_vpc/this
 description: A VPC is an isolated portion of the AWS Cloud.
 path: cidr_block
-source: vpcs/{vpc_name}/{region}/vpc.tf.json
+source: vpcs/{reversed_domain}/{vpc_name}/{region}/vpc.tf.json
+address: resource/aws_vpc/this
 properties:
   vpc_name:
     default: '{environment}'

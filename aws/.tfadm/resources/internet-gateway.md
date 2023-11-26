@@ -8,7 +8,7 @@
 
 ```
 tfadm COMMAND [OPTIONS] internet-gateway [{environment}/{region}/{internet_gateway_name}]...
-tfadm COMMAND [OPTIONS] internet-gateway [{domain}/vpcs/{vpc_name}/{region}]...
+tfadm COMMAND [OPTIONS] internet-gateway [vpcs/{reversed_domain}/{vpc_name}/{region}]...
 ```
 
 ## Description
@@ -42,7 +42,7 @@ An internet gateway enables resources in your public subnets (such as EC2 instan
 ### terraform.import()
 
 ```bash
-terraform "-chdir={domain}/vpcs/{vpc_name}/{region}" import "-input=false" "aws_internet_gateway.this" "{InternetGatewayId}"
+terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}" import "-input=false" "aws_internet_gateway.this" "{InternetGatewayId}"
 ```
 
 ## See Also

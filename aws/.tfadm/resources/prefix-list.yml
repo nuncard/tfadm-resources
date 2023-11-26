@@ -1,0 +1,105 @@
+extends: .tags-all
+parent: .region
+description: >-
+  A managed prefix list is a set of one or more CIDR blocks.
+
+  You can use prefix lists to make it easier to configure and maintain your security groups and
+  route tables. You can create a prefix list from the IP addresses that you frequently use, and
+  reference them as a set in security group rules and routes instead of referencing them
+  individually.
+
+  For example, you can consolidate security group rules with different CIDR blocks but the same
+  port and protocol into a single rule that uses a prefix list. If you scale your network and need
+  to allow traffic from another CIDR block, you can update the relevant prefix list and all security
+  groups that use the prefix list are updated. You can also use managed prefix lists with other AWS
+  accounts using Resource Access Manager (RAM).
+path: address_family/hostname/domain/cidr_block
+source: prefix-lists/{prefix_list_name}/{region}/prefix-list.tf.json
+address: resource/aws_ec2_managed_prefix_list/this
+template:
+  data:
+    locals:
+      entries: []
+      max_entries: ${length(local.entries)}
+    resource:
+      aws_ec2_managed_prefix_list:
+        this:
+          dynamic:
+            entry:
+              for_each: '${{for entry in local.entries: entry.cidr => entry}}'
+              content:
+                cidr: ${entry.key}
+                description: ${lookup(entry.value, "description", null)}
+properties:
+  domain:
+    description: >-
+      Root domain name used to identify services provided through the Internet. Cannot be
+      `amazonaws.com`.
+  hostname:
+    default: '{region}.{environment}'
+    description: The name of the host.
+    expr: this.format_map(_) if this is string else this
+    sync: Tags/Name
+    use: tags/Name
+  address_family:
+    default: IPv4
+    description: >-
+      The IP address type. Valid values: `IPv4` or `IPv6`.
+    sync: AddressFamily
+    translate:
+      ipv4: IPv4
+      ipv6: IPv6
+  address_family_:
+    expr: address_family.lower()
+    ignore: true
+    inherit: true
+    sync: false
+    when: address_family is string
+  prefix_list_name:
+    description: >-
+      A name for the prefix list, up to 255 characters in length. Cannot start with `com.amazonaws`.
+    expr: '("{}.{}.{}".format(address_family_, hostname, domain).split(".") | reverse | join(".")) if this is none and address_family_ is string and hostname is string and domain is string else this'
+    sync: PrefixListName
+    use: name
+  prefix_list_id_:
+    format: pl-{}
+    hash: md5
+    ignore: true
+    sync: false
+    value: '{prefix_list_name}.{region}'
+  PrefixListId:
+    description: The ID of the Prefix List you want to sync with.
+    ignore: true
+    inherit: true
+  max_entries:
+    computed: 'local.max_entries > 0 ? local.max_entries : 1'
+    sync: false
+  cidr_block:
+    description: The CIDR block.
+    ignore: true
+    inherit: false
+    sync: false
+methods:
+  sync:
+    describe:
+      - .tfadm/bin/describe-managed-prefix-lists.sh {profile} {region} Name=prefix-list-id,Values={PrefixListId}
+      - .tfadm/bin/describe-managed-prefix-lists.sh {profile} {region} Name=prefix-list-name,Values={prefix_list_name}
+      - .tfadm/bin/describe-managed-prefix-lists.sh {profile} {region}
+    when: 'prefix_list_name is string and not prefix_list_name.startswith("com.amazonaws.")'
+  terraform:
+    import:
+      id: '{PrefixListId}'
+events:
+  oninit:
+    create:
+      .prefix-list/versions: {}
+      .prefix-list/variables: {}
+      .prefix-list/providers: {}
+  onchange:
+    update:
+      prefix-list-entry:
+        internal: true
+        when: cidr_block is string
+module:
+  name: '{prefix_list_id_}'
+  file: .tfadm/var/lib/prefix-lists.json

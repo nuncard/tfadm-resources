@@ -6,7 +6,6 @@
 
 ```
 tfadm COMMAND [OPTIONS] .aws [{environment}]...
-tfadm COMMAND [OPTIONS] .aws [{domain}]...
 ```
 
 ## Description
@@ -19,6 +18,9 @@ tfadm COMMAND [OPTIONS] .aws [{domain}]...
 
   Use a specific profile from your credential file.
 
+- **`assume_role_arn`**
+  Amazon Resource Name (ARN) of the IAM Role to assume.
+
 - **`region`**
 
   The name of the AWS region.
@@ -27,11 +29,13 @@ tfadm COMMAND [OPTIONS] .aws [{domain}]...
 
 - [.providers]
 - [.region]
+- [.variables]
 - [.versions]
 
 [.providers]: .providers.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
+[.variables]: .variables.md
 [.versions]: .versions.md
 
 ## See Also

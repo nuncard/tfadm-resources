@@ -39,6 +39,13 @@ tfadm COMMAND [OPTIONS] .vpc/default [{domain}/vpc/{vpc_name}/{region}]...
 
   - [dhcp-options]
 
+  - [prefix-list]
+
+    ```yaml
+    address_family: IPv4
+    hostname: '{region}.{vpc_name}'
+    ```
+
   - [internet-gateway]
 
   - [vpc-dhcp-association]
@@ -161,6 +168,7 @@ tfadm COMMAND [OPTIONS] .vpc/default [{domain}/vpc/{vpc_name}/{region}]...
 [dhcp-options]: ../dhcp-options.md
 [internet-gateway]: ../internet-gateway.md
 [nat-gateway]: ../nat-gateway.md
+[prefix-list]: ../prefix-list.md
 [route-table]: ../route-table.md
 [route]: ../route.md
 [subnet]: ../subnet.md

@@ -2,15 +2,15 @@
   "module": {
     "subnet-8f0c9a2df16cf6847a9959c1b40171dc": {
       "availability_zone": "eu-west-1a",
-      "source": "./example.com/vpcs/dev/eu-west-1/subnets/dmz"
+      "source": "./vpcs/com.example/dev/eu-west-1/subnets/dmz"
     },
     "subnet-decc7512491bc11b5df121505fc9bea1": {
       "availability_zone": "eu-west-1b",
-      "source": "./example.com/vpcs/dev/eu-west-1/subnets/dmz"
+      "source": "./vpcs/com.example/dev/eu-west-1/subnets/dmz"
     },
     "subnet-f64685cd35eb27046c95052749d8de41": {
       "availability_zone": "eu-west-1c",
-      "source": "./example.com/vpcs/dev/eu-west-1/subnets/dmz"
+      "source": "./vpcs/com.example/dev/eu-west-1/subnets/dmz"
     }
   }
 }
