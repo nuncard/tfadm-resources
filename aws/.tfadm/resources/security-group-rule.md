@@ -65,6 +65,10 @@ One of the following source/destination arguments can be supplied:
 
   The IPv6 CIDR range. To specify a single IPv6 address, use the `/128` prefix length.
 
+- **`prefix_list_name`**
+
+  The name of the source/destination prefix list. Supports [Format String Syntax].
+
 - **`referenced_security_group_name`**
 
   The name of the source/destination security group.
@@ -90,12 +94,18 @@ terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{se
 
 ### oncreate
 
-- **create**
+- **update**
 
   - [.security-group/referenced-group]
 
     ```yaml
     when: referenced_security_group_id is defined and referenced_security_group_id != security_group_id
+    ```
+
+  - [.security-group/prefix-list]:
+
+    ```yaml
+    when: prefix_list_name is defined
     ```
 
 ## See Also
@@ -107,6 +117,8 @@ terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/security-groups/{se
 [.aws]: README.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
+[.security-group/prefix-list]: .security-group/prefix-list.md
 [.security-group/referenced-group]: .security-group/referenced-group.md
+[Format String Syntax]: https://docs.python.org/3/library/string.html#format-string-syntax
 [security-group]: security-group.md
 [vpc]: vpc.md

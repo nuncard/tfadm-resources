@@ -53,9 +53,9 @@ terraform "-chdir=vpcs/{reversed_domain}/{vpc_name}/{region}/route-tables/{route
 
 ## Events
 
-### oninit
+### onchange
 
-- **create**
+- **update**
 
   - [.route-table/internet-gateway]
   
