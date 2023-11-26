@@ -114,5 +114,5 @@ terraform "-chdir=prefix-lists/{prefix_list_name}/{region}" import "-input=false
 [.prefix-list/variables]: .prefix-list/variables.md
 [.region]: .region.md
 [.root]: ../../../.tfadm/resources/README.md
-[Format String Syntax]: https://docs.python.org/3/library/string.
+[Format String Syntax]: https://docs.python.org/3/library/string.html#format-string-syntax
 [prefix-list-entry]: prefix-list-entry.md
