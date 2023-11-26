@@ -1,0 +1,14 @@
+{
+  "variable": {
+    "assume_role_arn": {
+      "default": null,
+      "description": "Amazon Resource Name (ARN) of the IAM Role to assume.",
+      "type": "string"
+    },
+    "region": {
+      "default": "eu-west-1",
+      "description": "The name of the AWS region.",
+      "type": "string"
+    }
+  }
+}

@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Documented `.variables` resource;
 - Added `aws/.module/providers.yml` file;
 - Added resources for AWS-managed prefix lists;
+- Generated `aws/prefix-lists/com.example.dev.eu-west-1.ipv4/` Terraform code;
 
 ### Changed
 
