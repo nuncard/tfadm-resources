@@ -13,8 +13,8 @@ tfswitch -u
 Generate the Terraform code for `dev` VPC (see [.vpc/default]).
 
 ```bash
-# It should generate the same content as the example.com directory in this
-# repository.
+# This should generate the same content as the `dhcp-options`, `prefix-lists`
+# and `vpcs` directories in this repository.
 tfadm create .vpc/default --overwrite dev/eu-west-1/10.0.0.0/16
 ```
 
@@ -27,7 +27,7 @@ tfadm create .vpc/default qa/eu-west-1/10.4.0.0/16 prd/eu-west-1/10.8.0.0/16
 Add `Test` tag to all objects that supports tags.
 
 ```bash
-tfadm update .vpc/default - example.com/vpcs/*/* <<EOT
+tfadm update .vpc/default - vpcs/com.example/*/* <<EOT
 tags:
   Test: '123'
 EOT
@@ -62,6 +62,14 @@ The `tfadm-resources-aws-vpc` set includes the following resources *(more to com
 
   A set of DHCP options for your VPC.
 
+- [prefix-list] `{environment}/{region}/{address_family}/{hostname}/{domain}/{cidr_block}`
+
+  A managed prefix list is a set of one or more CIDR blocks. 
+
+  - [prefix-list-entry] `{environment}/{region}/{address_family}/{hostname}/{domain}/{cidr_block}`
+
+    An entry for a prefix list. 
+
 - [vpc] `{environment}/{region}/{cidr_block}`
 
   A VPC is an isolated portion of the AWS Cloud.
@@ -94,11 +102,11 @@ The `tfadm-resources-aws-vpc` set includes the following resources *(more to com
 
       Represents an inbound (ingress) or outbound (egress) rule for a security group.
 
-  - [subnet](.tfadm/resources/subnet.md) `{environment}/{region}/{az}/{subnet_name}/{cidr_block}`
+  - [subnet] `{environment}/{region}/{az}/{subnet_name}/{cidr_block}`
 
     A subnet is a range of IP addresses in your VPC.
 
-    - [nat-gateway](.tfadm/resources/nat-gateway.md) `{environment}/{region}/{az}/{subnet_name}/{nat_gateway_name}`
+    - [nat-gateway] `{environment}/{region}/{az}/{subnet_name}/{nat_gateway_name}`
 
       Network Address Translation (NAT) service.
 
@@ -110,14 +118,22 @@ The terraform code is generated following the file structure represented below.
 
 ```
 .
-└── {domain}
-    ├── dhcp-options
-    │   └── {dhcp_options_name}
-    │       └── {region}
-    │           ├── dhcp-options.tf.json
-    │           ├── providers.tf.json
-    │           └── versions.tf.json
-    └── vpcs
+├── dhcp-options
+│   └── {reversed_domain}
+│       └── {dhcp_options_name}
+│           └── {region}
+│               ├── dhcp-options.tf.json
+│               ├── providers.tf.json
+│               └── versions.tf.json
+├── prefix-lists
+│   └── {prefix_list_name}
+│       └── {region}
+│           ├── prefix-list.tf.json
+│           ├── providers.tf.json
+│           ├── variables.tf.json
+│           └── versions.tf.json
+└── vpcs
+    └── {reversed_domain}
         └── {vpc_name}
             └── {region}
                 ├── cidr-associations.tf.json
@@ -140,6 +156,7 @@ The terraform code is generated following the file structure represented below.
                 │       ├── egress-rules.tf.json
                 │       ├── group.tf.json
                 │       ├── ingress-rules.tf.json
+                │       ├── prefix-lists.tf.json
                 │       ├── providers.tf.json
                 │       ├── referenced-groups.tf.json
                 │       ├── versions.tf.json
@@ -160,6 +177,8 @@ The terraform code is generated following the file structure represented below.
 [dhcp-options]: .tfadm/resources/dhcp-options.md
 [internet-gateway]: .tfadm/resources/internet-gateway.md
 [nat-gateway]: .tfadm/resources/nat-gateway.md
+[prefix-list-entry]: .tfadm/resources/prefix-list-entry.md
+[prefix-list]: .tfadm/resources/prefix-list.md
 [route-table]: .tfadm/resources/route-table.md
 [route]: .tfadm/resources/roue.md
 [security-group-rule]: .tfadm/resources/security-group-rule.md

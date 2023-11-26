@@ -1,0 +1,12 @@
+description: Provides details about a specific managed prefix list.
+path: prefix_list_name
+source: prefix-list.tf.json
+address: data/aws_ec2_managed_prefix_list/{prefix_list_id_}
+properties:
+  prefix_list_name:
+    description: The name of the prefix list.
+    primary_key: true
+    use: name
+  prefix_list_id_:
+    ignore: true
+    value: this

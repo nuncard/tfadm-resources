@@ -1,0 +1,3 @@
+extends: .prefix-list
+parent: security-group
+source: prefix-lists.tf.json

@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - `reversed_domain` property added to `root` resource;
 - Documented `.variables` resource;
 - Added `aws/.module/providers.yml` file;
+- Added resources for AWS-managed prefix lists;
 
 ### Changed
 

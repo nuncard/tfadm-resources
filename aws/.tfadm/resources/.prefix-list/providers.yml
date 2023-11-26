@@ -1,0 +1,13 @@
+extends: .module/providers
+parent: prefix-list
+properties:
+  aws:
+    properties:
+      default_tags:
+        properties:
+          domain:
+            computed: null
+          environment:
+            computed: null
+          region:
+            computed: null

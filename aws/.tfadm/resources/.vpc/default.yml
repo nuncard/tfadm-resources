@@ -21,6 +21,16 @@ events:
   onchange:
     update:
       dhcp-options: {}
+      prefix-list:
+        args:
+          address_family: IPv4
+          hostname: '{region}.{vpc_name}'
+        unset: cidr_block
+      .vpc/prefix-list-entry:
+        args:
+          address_family: IPv4
+          hostname: '{region}.{vpc_name}'
+        when: cidr_block is defined
       internet-gateway: {}
       vpc-dhcp-association: {}
       vpc-cidr-association:
