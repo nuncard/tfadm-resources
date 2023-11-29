@@ -32,14 +32,14 @@ Having the `root_domain` variable set, execute the next instruction to update th
 yq ".properties.domain.value = \"$root_domain\"" -i .tfadm/resources/.root.yml
 ```
 
-Then, follow the documentation for the following [Terraform Providers](https://registry.terraform.io/browse/providers):
+Then follow the documentation for each of the supported [Terraform Providers](https://registry.terraform.io/browse/providers):
 
   - [Amazon Web Services (AWS)](aws/README.md);
   - *(More to come in the future).*
 
 ## Reference
 
-Tfadm resources are basically a set of configuration files, in [YAML format](https://yaml.org/). Each file represents an object, such as a class in [Object Oriented Programming (OOP)](https://en.wikipedia.org/wiki/Object-oriented_programming) languages. Thus, a TfAdm resource is a template for an object, and the generated data is an instance of a TfAdm resource. In other words, a TfAdm resource dynamically replicates a predefined data structure with values specified from stdin. The result is then stored in a file, like a row in a database table. Therefore, we can later modify each of these [terraform](https://developer.hashicorp.com/terraform) objects using its `primary_key`. A file, name of which begins with the `.` character, represents an internal resource, such as an abstract class in OOP.
+TfAdm resources are basically a set of configuration files, in [YAML format](https://yaml.org/). Each file represents an object, such as a class in [Object Oriented Programming (OOP)](https://en.wikipedia.org/wiki/Object-oriented_programming) languages. Thus, a TfAdm resource is a template for an object, and the generated data is an instance of a TfAdm resource. In other words, a TfAdm resource dynamically replicates a predefined data structure with values specified from stdin. The result is then stored in a file, like a row in a database table. Therefore, we can later modify each of these [Terraform](https://developer.hashicorp.com/terraform) objects using its `primary_key`. A file, name of which begins with the `.` character, represents an internal resource, such as an abstract class in OOP.
 
 [Inheritance](https://www.w3schools.com/java/java_inheritance.asp) plays a big role in the way TfAdm resources are structured. Helps avoiding redundancy by allowing a resource to extend other resources. To inherit from a TfAdm resource, use the `extends` configuration property. Additionally, you can use the `parent` configuration property on a child resource to inherit all properties that are explicitly marked as inheritable on parent resources. Thus, when compiled by TfAdm, resources are structured into a hierarchical tree.
 

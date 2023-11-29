@@ -1,0 +1,18 @@
+// [.root] / [.aws] / [.region] / [vpc] / [subnet] /
+
+# .subnet/versions
+
+- **Extends:** [.versions](../../../../.tfadm/resources/.versions.md)
+
+## Synopsis
+
+```
+tfadm COMMAND [OPTIONS] .subnet/versions [{environment}/{region}/{az}/{subnet_name}]...
+tfadm COMMAND [OPTIONS] .subnet/versions [vpcs/{reversed_domain}/{vpc_name}/{region}/subnets/{subnet_name}]...
+```
+
+[.aws]: ../../../../.tfadm/resources/README.md
+[.region]: ../../../../.tfadm/resources/.region.md
+[.root]: ../../../../../.tfadm/resources/README.md
+[subnet]: ../subnet.md
+[vpc]: ../vpc.md

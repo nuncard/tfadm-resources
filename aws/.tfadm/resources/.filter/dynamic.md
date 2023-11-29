@@ -20,5 +20,5 @@ tfadm COMMAND [OPTIONS] .filter/dynamic
 
 ## Direct Sub-resources
 
-- [.internet-gateway](../.internet-gateway.md)
-- [vpc-dhcp-association](../vpc-dhcp-association.md)
+- [.internet-gateway](../../../networking/.tfadm/resources/.internet-gateway.md)
+- [vpc-dhcp-association](../../../networking/.tfadm/resources/vpc-dhcp-association.md)

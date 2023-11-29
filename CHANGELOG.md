@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Moved AWS networking resources/code to `aws/networking` directory;
+
+### Fixed
+
+- Improved/Fixed documentation;
+
 ## [2023.11.26]
 
 ### Added
@@ -78,7 +88,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 - First release.
 
-[unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.11.26...HEAD
+[unreleased]: https://github.com/nuncard/tfadm-resources/compare/2023.11.26...dev
 [2023.11.26]: https://github.com/nuncard/tfadm-resources/compare/2023.10.08...2023.11.26
 [2023.10.08]: https://github.com/nuncard/tfadm-resources/compare/2023.10.02...2023.10.08
 [2023.10.02]: https://github.com/nuncard/tfadm-resources/compare/2023.09.19...2023.10.02

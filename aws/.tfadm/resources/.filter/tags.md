@@ -23,6 +23,6 @@ Tags that, together with the name, allow you to uniquely identify a resource.
 ## Direct Sub-resources
 
 - [.filter/dynamic](dynamic.md)
-- [.nat-gateway](../.nat-gateway.md)
-- [.security-group/referenced-group](../.security-group/referenced-group.md)
+- [.nat-gateway](../../../networking/.tfadm/resources/.nat-gateway.md)
+- [.security-group/referenced-group](../../../networking/.tfadm/resources/.security-group/referenced-group.md)
 - [.vpc](../.vpc.md)
